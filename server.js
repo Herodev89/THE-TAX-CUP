@@ -348,11 +348,11 @@ app.get('/landing', (req, res) => {
   res.sendFile(path.join(rootDir, 'landing.html'));
 });
 
-app.get('/login.html', (req, res, next) => {
+app.get('/login.html', (req, res) => {
   if (getSessionUser(req)) {
     return res.redirect('/index.html');
   }
-  next();
+  res.sendFile(path.join(rootDir, 'login.html'));
 });
 
 app.get('/index.html', (req, res) => {
@@ -384,6 +384,11 @@ app.get('/payroll.html', (req, res) => {
 });
 
 app.get('*', (req, res) => {
+  // Safety guard — never redirect login/landing to themselves (would cause a loop)
+  const p = req.path;
+  if (p === '/login.html' || p === '/login' || p === '/landing.html' || p === '/landing') {
+    return res.sendFile(path.join(rootDir, p.replace('/', '') || 'landing.html'));
+  }
   if (!getSessionUser(req)) return res.redirect('/login.html?redirect=index.html');
   res.sendFile(path.join(rootDir, 'index.html'));
 });
