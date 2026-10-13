@@ -10,10 +10,10 @@
 }
 
 .brand-name {
-  font-family: var(--font-serif, 'Fraunces', Georgia, serif);
+  font-family: var(--font-heading, var(--font-sans, 'Plus Jakarta Sans', sans-serif));
   font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  letter-spacing: -0.025em;
   color: var(--ink);
   line-height: 1.15;
 }
