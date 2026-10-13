@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1510">
+  <meta name="description" content="The Tax Cup — Nigerian PAYE salary calculator. Calculate gross to net, net to gross, with pension, NHF, and rent relief for 2026.">
+  <link rel="manifest" href="manifest.json">
+  <title>The Tax Cup | Smart PAYE Calculator · Nigeria 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=dark-v3">
+  <link rel="stylesheet" href="composition.css?v=dark-v3">
+  <link rel="stylesheet" href="brand.css?v=dark-v3">
+  <link rel="stylesheet" href="tax-bands.css?v=dark-v3">
+  <link rel="stylesheet" href="report.css?v=dark-v3">
+  <link rel="stylesheet" href="archive.css?v=dark-v3">
+</head>
+<body>
+  <main class="shell">
+
+    <!-- ── Topbar ── -->
+    <header class="topbar">
+      <div class="brand">
+        <img class="brand-logo" src="tax-cup-logo.svg" alt="The Tax Cup logo">
+        <span class="brand-copy">
+          <span class="brand-name">THE <em>TAX</em> CUP</span>
+          <small class="brand-tagline">SIMPLIFYING TAX &amp; COMPLIANCE FOR BUSINESSES</small>
+        </span>
+      </div>
+      <nav class="topbar-nav" aria-label="App sections">
+        <a class="batch-link" href="landing.html">Overview</a>
+        <a class="batch-link" href="employees.html">Team payroll</a>
+        <a class="batch-link" href="company.html">Company</a>
+        <a class="batch-link" href="payroll.html">Control room ↗</a>
+        <a class="batch-link" id="nav-logout" href="#" style="opacity: 0.75;" title="Sign out of Tax Cup">Sign out</a>
+      </nav>
+      <span class="jurisdiction">Nigeria / 2026</span>
+    </header>
+
+    <!-- ── Hero ── -->
+    <section class="intro" aria-label="Page introduction">
+      <div class="intro-headline">
+        <p class="kicker">Schedule 6 Assessment Engine · 2026 Tax Act</p>
+        <h1>Individual PAYE<br><span>Assessment Terminal.</span></h1>
+      </div>
+      <p class="intro-copy">Statutory Personal Income Tax (PIT) and net take-home calculation framework for Nigerian employees. Verified in accordance with the 2026 Tax Act.</p>
+    </section>
+
+    <!-- ── Workspace ── -->
+    <section class="workspace" aria-label="Calculator workspace">
+
+      <!-- Input panel -->
+      <div class="panel input-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="step" aria-hidden="true">01</span>
+            <h2>Configure salary</h2>
+          </div>
+        </div>
+
+        <!-- Mode tabs -->
+        <div class="mode-switch" role="tablist" aria-label="Calculation mode">
+          <button class="mode active" data-mode="gross" role="tab" aria-selected="true">Gross → Net</button>
+          <button class="mode" data-mode="net" role="tab" aria-selected="false">Net → Gross</button>
+        </div>
+
+        <form id="calculator-form" novalidate>
+
+          <!-- Employee name -->
+          <label class="field-label employee-label" for="employee-name">
+            <span>Employee name</span>
+            <span style="font:400 10px var(--mono);color:var(--subtle)">For the report</span>
+          </label>
+          <div class="text-input">
+            <input id="employee-name" type="text" placeholder="Enter full name" autocomplete="name">
+          </div>
+
+          <!-- Salary -->
+          <label class="field-label" for="salary" style="margin-top:18px">
+            <span id="salary-label">Gross salary</span>
+            <span class="unit-toggle" role="group" aria-label="Salary period">
+              <button type="button" class="unit active" data-unit="monthly">Monthly</button>
+              <button type="button" class="unit" data-unit="annual">Annual</button>
+            </span>
+          </label>
+          <div class="money-input">
+            <span>₦</span>
+            <input id="salary" type="number" step="any" value="500000" required aria-describedby="salary-hint">
+            <span class="input-suffix" id="input-suffix">/ month</span>
+          </div>
+          <p class="field-hint" id="salary-hint">Enter the employee's gross monthly salary before deductions.</p>
+
+          <!-- Composition -->
+          <div class="options-title composition-title">Gross salary composition</div>
+          <p class="field-hint composition-hint">Percentages must sum to 100%.</p>
+          <div class="allocation-grid">
+            <label>
+              <span>Basic salary</span>
+              <div><input class="allocation" data-allocation="basic" type="number" min="0" step="any" value="50"><b>%</b></div>
+            </label>
+            <label>
+              <span>Housing allowance</span>
+              <div><input class="allocation" data-allocation="housing" type="number" min="0" step="any" value="20"><b>%</b></div>
+            </label>
+            <label>
+              <span>Transport allowance</span>
+              <div><input class="allocation" data-allocation="transport" type="number" min="0" step="any" value="15"><b>%</b></div>
+            </label>
+            <label>
+              <span>Other allowances</span>
+              <div><input class="allocation" data-allocation="other" type="number" min="0" step="any" value="15"><b>%</b></div>
+            </label>
+          </div>
+          <div class="allocation-total">
+            <span>Allocated <strong id="allocation-total">100%</strong></span>
+            <span id="allocation-status">Ready to calculate</span>
+          </div>
+
+          <!-- Deductions -->
+          <div class="options-title">Deductions &amp; benefits</div>
+
+          <label class="check-row">
+            <input id="pension" type="checkbox" checked>
+            <span class="check-box" aria-hidden="true"></span>
+            <span>
+              <strong>Pension contribution</strong>
+              <small>8% of Basic + Housing + Transport</small>
+            </span>
+            <b>8%</b>
+          </label>
+
+          <label class="check-row">
+            <input id="nhf" type="checkbox" checked>
+            <span class="check-box" aria-hidden="true"></span>
+            <span>
+              <strong>NHF contribution</strong>
+              <small>2.5% of Basic salary</small>
+            </span>
+            <b>2.5%</b>
+          </label>
+
+          <label class="field-label rent-label" for="annual-rent">
+            <span>Annual rent paid</span>
+            <span style="font:400 10px var(--mono);color:var(--subtle)">20% relief / max ₦500k</span>
+          </label>
+          <div class="money-input compact">
+            <span>₦</span>
+            <input id="annual-rent" type="number" step="any" value="0" aria-describedby="rent-hint">
+            <span class="input-suffix">/ year</span>
+          </div>
+          <p class="field-hint rent-hint" id="rent-hint">Reduces taxable income under the rent relief rule.</p>
+
+          <label class="field-label rent-label" for="statutory-deductions">
+            <span>Other statutory deductions</span>
+            <span style="font:400 10px var(--mono);color:var(--subtle)">Monthly amount</span>
+          </label>
+          <div class="money-input compact">
+            <span>₦</span>
+            <input id="statutory-deductions" type="number" step="any" value="0">
+            <span class="input-suffix">/ month</span>
+          </div>
+          <p class="field-hint rent-hint">Additional approved statutory deductions for this employee.</p>
+
+          <label class="check-row">
+            <input id="other-deductions" type="checkbox">
+            <span class="check-box" aria-hidden="true"></span>
+            <span>
+              <strong>Other monthly deductions</strong>
+              <small>Health, loan or other payroll items</small>
+            </span>
+            <b>+</b>
+          </label>
+          <div class="money-input compact hidden" id="other-wrap">
+            <span>₦</span>
+            <input id="other" type="number" step="any" value="0">
+            <span class="input-suffix">/ month</span>
+          </div>
+
+          <button class="calculate" id="calculate-button" type="submit" aria-label="Calculate salary">
+            <span>Calculate salary</span>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </button>
+        </form>
+      </div><!-- /input-panel -->
+
+      <!-- Result panel -->
+      <div class="panel result-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="step" aria-hidden="true">02</span>
+            <div>
+              <h2>Your estimate</h2>
+              <span class="report-employee" id="report-employee">Employee salary report</span>
+            </div>
+          </div>
+          <button class="print-button" id="print" title="Print or save as PDF" aria-label="Print salary report">Print / PDF ↗</button>
+        </div>
+
+        <!-- Net result -->
+        <div class="result-hero" aria-live="polite">
+          <span id="result-label">Estimated net pay</span>
+          <strong id="net-result">₦399,871</strong>
+          <span id="result-period">per month</span>
+        </div>
+
+        <!-- Metrics row -->
+        <div class="metrics" aria-label="Key figures">
+          <div>
+            <span>Annual PAYE</span>
+            <strong id="paye-result">₦1,201,548</strong>
+          </div>
+          <div>
+            <span>Annual gross</span>
+            <strong id="gross-result">₦6,000,000</strong>
+          </div>
+          <div>
+            <span>CRA (annual)</span>
+            <strong id="cra-result">₦0</strong>
+          </div>
+          <div>
+            <span>Rent relief</span>
+            <strong id="rent-relief-result">₦0</strong>
+          </div>
+          <div>
+            <span>Other statutory</span>
+            <strong id="statutory-result">₦0</strong>
+          </div>
+        </div>
+
+        <!-- Tax bands -->
+        <div class="tax-band-panel">
+          <div class="breakdown-heading">
+            <span>Tax bands</span>
+            <span>Annual taxable income</span>
+          </div>
+          <div id="tax-band-list"></div>
+        </div>
+
+        <!-- Pay bar chart -->
+        <div class="breakdown-heading" style="margin-top:24px">
+          <span>Pay breakdown</span>
+          <span id="breakdown-period">Monthly view</span>
+        </div>
+        <div class="breakdown">
+          <div class="bar" role="img" aria-label="Pay composition bar">
+            <i class="gross-bar"></i>
+            <i class="pension-bar"></i>
+            <i class="nhf-bar"></i>
+            <i class="tax-bar"></i>
+          </div>
+          <div class="legend">
+            <span><i class="dot gross" aria-hidden="true"></i>Net pay <b id="gross-legend">₦500,000</b></span>
+            <span><i class="dot pension" aria-hidden="true"></i>Pension <b id="pension-legend">₦40,000</b></span>
+            <span><i class="dot nhf" aria-hidden="true"></i>NHF <b id="nhf-legend">₦12,500</b></span>
+            <span><i class="dot tax" aria-hidden="true"></i>PAYE <b id="tax-legend">₦100,129</b></span>
+            <span style="grid-column:1/-1">Other statutory <b id="statutory-legend">₦0</b></span>
+          </div>
+        </div>
+
+        <!-- Earnings composition -->
+        <div class="allowance-breakdown">
+          <div class="breakdown-heading">
+            <span>Earnings composition</span>
+            <span>Monthly allocation</span>
+          </div>
+          <div id="allowance-list"></div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="note" role="note">
+          <span aria-hidden="true">i</span>
+          <p>This estimate uses the 2026 Nigerian PAYE model. Confirm rates and exemptions with your payroll adviser before processing.</p>
+        </div>
+      </div><!-- /result-panel -->
+
+    </section><!-- /workspace -->
+
+    <!-- ── Archive ── -->
+    <section class="archive-panel panel" aria-label="Monthly payroll archive">
+      <div class="panel-heading">
+        <div>
+          <span class="step" aria-hidden="true">03</span>
+          <div>
+            <h2>Monthly payroll archive</h2>
+            <span class="archive-subtitle">Save and retrieve individual payroll records</span>
+          </div>
+        </div>
+      </div>
+      <div class="archive-actions">
+        <label class="archive-field" for="single-payroll-month">
+          Payroll month
+          <input id="single-payroll-month" type="month" required>
+        </label>
+        <button class="calculate archive-save" id="save-single-payroll" type="button">
+          Save payroll <span class="arrow">↗</span>
+        </button>
+        <label class="archive-search" for="single-archive-search">
+          Search saved payrolls
+          <input id="single-archive-search" type="search" placeholder="Search by name or month">
+        </label>
+      </div>
+      <div class="archive-list" id="single-archive-list"></div>
+      <p class="archive-empty hidden" id="single-archive-empty">No saved individual payrolls yet.</p>
+    </section>
+
+    <footer>
+      <span>THE TAX CUP · SIMPLIFYING TAX &amp; COMPLIANCE FOR BUSINESSES</span>
+      <span>2026 Nigerian PAYE · Schedule 6 · CRA applied</span>
+    </footer>
+
+  </main>
+
+  <script src="archive.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
+  </script>
+</body>
+</html>

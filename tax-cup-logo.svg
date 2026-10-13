@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" role="img" aria-labelledby="title desc">
+  <title id="title">The Tax Cup</title>
+  <desc id="desc">The Tax Cup logo with a gold coffee cup and the tagline Simplifying Tax and Compliance for Businesses</desc>
+  <defs><path id="tagPath" d="M 105 360 A 255 255 0 0 0 615 360"/></defs>
+  <circle cx="360" cy="360" r="334" fill="#fffdf8" stroke="#c28d20" stroke-width="10"/>
+  <circle cx="360" cy="360" r="306" fill="none" stroke="#1b1a18" stroke-width="3"/>
+  <g fill="#c28d20" stroke="#c28d20">
+    <path d="M260 218h180v112c0 66-40 105-90 105s-90-39-90-105z" stroke-width="3"/>
+    <path d="M440 242c74-18 91 13 91 50 0 42-38 68-91 59v-24c37 7 59-7 59-35 0-24-19-31-59-20z" stroke-width="3"/>
+    <ellipse cx="350" cy="218" rx="90" ry="17" fill="#fffdf8" stroke-width="5"/>
+    <path d="M293 316v105h22V299zm38 105v-135h22v135zm38 0v-162h22v162z" fill="#fffdf8" stroke="none"/>
+    <path d="M244 433h220" stroke-width="6"/>
+    <path d="M319 174c32-38 2-58 30-93-3 37 45 46 12 93-8 12-21 20-29 28 8-20 8-33-13-28z" stroke="none"/>
+    <path d="M362 171c30-35 8-52 31-76-3 32 37 39 10 76-7 10-17 16-25 24 7-17 5-27-16-24z" stroke="none"/>
+  </g>
+  <path d="M225 465h270" stroke="#c28d20" stroke-width="4"/>
+  <text x="360" y="515" text-anchor="middle" font-family="Georgia,serif" font-size="58" letter-spacing="2" fill="#171616">THE <tspan fill="#c28d20">TAX</tspan></text>
+  <text x="360" y="575" text-anchor="middle" font-family="Georgia,serif" font-size="56" letter-spacing="5" fill="#171616">CUP</text>
+  <text><textPath href="#tagPath" startOffset="50%" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" letter-spacing="4" fill="#171616">SIMPLIFYING TAX &amp; COMPLIANCE FOR BUSINESSES</textPath></text>
+</svg>

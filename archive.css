@@ -1,0 +1,185 @@
+/* ============================================================
+   THE TAX CUP — Monthly Payroll Archive Panel Styles
+   ============================================================ */
+
+.archive-panel {
+  margin-top: 24px;
+  border-top-width: 1px;
+}
+
+.archive-subtitle {
+  display: block;
+  margin-top: 4px;
+  color: var(--ink-muted);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 13px;
+}
+
+.archive-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin: 24px 0 16px;
+}
+
+.archive-field,
+.archive-search {
+  display: grid;
+  gap: 6px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+
+.archive-field input,
+.archive-search input {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md, 8px);
+  background: var(--surface);
+  padding: 0 12px;
+  height: 42px;
+  color: var(--ink);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 13.5px;
+  min-width: 160px;
+  outline: none;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+
+.archive-field input:focus,
+.archive-search input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-ring);
+}
+
+.archive-save {
+  height: 42px;
+  padding: 0 18px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 13.5px;
+  font-weight: 600;
+  border-radius: var(--radius-md, 8px);
+  white-space: nowrap;
+  background: var(--gold-gradient);
+  color: #14110B;
+  border: 1px solid rgba(143, 106, 28, 0.4);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: filter 150ms, box-shadow 150ms, transform 150ms;
+  box-shadow: 0 1px 2px rgba(20, 17, 11, 0.08);
+}
+
+.archive-save:hover {
+  filter: brightness(1.04);
+  box-shadow: 0 4px 12px rgba(184, 137, 43, 0.25);
+  transform: translateY(-1px);
+}
+
+.archive-save:active {
+  transform: scale(0.98);
+}
+
+.archive-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.archive-row {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md, 8px);
+  overflow: hidden;
+  background: var(--surface);
+  transition: border-color 150ms, box-shadow 150ms;
+}
+
+.archive-row:hover {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-sm);
+}
+
+.archive-open {
+  flex: 1;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.archive-open strong {
+  display: block;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.archive-open small {
+  display: block;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 2px;
+}
+
+.archive-row > div {
+  text-align: right;
+  padding-right: 14px;
+  flex-shrink: 0;
+}
+
+.archive-row > div b {
+  display: block;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.archive-row > div small {
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: 11px;
+  color: var(--ink-muted);
+}
+
+.archive-delete {
+  border: none;
+  border-left: 1px solid var(--line);
+  background: transparent;
+  width: 42px;
+  min-height: 52px;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--ink-muted);
+  transition: background 150ms, color 150ms;
+  flex-shrink: 0;
+}
+
+.archive-delete:hover {
+  background: var(--red-soft, #FDF0ED);
+  color: var(--red, #922E22);
+}
+
+.archive-empty {
+  text-align: center;
+  color: var(--ink-muted);
+  font-size: 13px;
+  padding: 24px;
+}
+
+@media (max-width: 700px) {
+  .archive-actions { display: grid; grid-template-columns: 1fr 1fr; }
+  .archive-search  { grid-column: 1 / -1; }
+  .archive-save    { width: 100%; justify-content: center; }
+}

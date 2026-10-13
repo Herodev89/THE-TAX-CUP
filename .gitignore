@@ -1,0 +1,9 @@
+node_modules
+node_modules.zip
+node_modules.rar
+*- Copy.*
+* - Copy.*
+.session-secret
+.vercel
+users.json
+*.csv

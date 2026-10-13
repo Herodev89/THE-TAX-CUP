@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Tax Cup | API Keys</title>
+  <link rel="stylesheet" href="api-keys.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Project navigation">
+      <div class="sidebar-top"><span class="sidebar-icon" aria-hidden="true"></span></div>
+      <nav class="side-actions">
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>Table Editor</div>
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>SQL Editor</div>
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>Database</div>
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>Authentication</div>
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>Storage</div>
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>Functions</div>
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>Logs</div>
+      </nav>
+      <p class="nav-section-label">Settings</p>
+      <nav class="side-actions">
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>General</div>
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>Infrastructure</div>
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>Integrations</div>
+        <div class="nav-item is-active settings"><span class="mini" aria-hidden="true"></span>API Keys</div>
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>JWT Keys</div>
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>Log Drains</div>
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>Add-ons</div>
+      </nav>
+      <p class="nav-section-label">Billing</p>
+      <nav class="side-actions">
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>Subscription</div>
+        <div class="nav-item"><span class="mini" aria-hidden="true"></span>Usage</div>
+      </nav>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="logo-stack"><span class="logo-mark" aria-hidden="true"></span><span class="topbar-brand">THE <em>TAX</em> CUP</span></div>
+          <span class="pill">Free</span>
+          <span aria-hidden="true">/</span>
+          <span class="project-name">aminumubarak004-rgb's Project</span>
+          <span aria-hidden="true">⌄</span>
+          <span aria-hidden="true">/</span>
+          <span class="project-name">main</span>
+          <span class="pill env env--prod">Production</span>
+        </div>
+        <div class="top-actions">
+          <button class="primary-btn" type="button">&#x1F517; Connect</button>
+          <span class="ghost-btn">Feedback</span>
+          <label class="search"><input type="search" placeholder="Search...  Ctrl K" aria-label="Search"></label>
+          <button class="icon-btn" type="button" aria-label="Help">?</button>
+          <button class="icon-btn" type="button" aria-label="Tips">&#x1F4A1;</button>
+          <button class="icon-btn" type="button" aria-label="Account">A</button>
+        </div>
+      </header>
+
+      <section class="content">
+        <h1>API Keys</h1>
+        <p class="subtitle">Configure API keys to securely control access to your project</p>
+        <div class="tab-row" role="tablist" aria-label="API key type">
+          <button class="tab active" role="tab" aria-selected="true">Publishable and secret API keys</button>
+          <button class="tab" role="tab" aria-selected="false">Legacy anon, service_role API keys</button>
+        </div>
+
+        <section class="info-card" aria-label="API key notice">
+          <div class="info-card-box"><strong>Your new API keys are here</strong><span>We've updated our API keys to better support your application needs.</span><a href="#discussion">Join the discussion on GitHub ↗</a></div>
+          <button class="close-chip" type="button" aria-label="Dismiss notice">×</button>
+        </section>
+
+        <section class="key-section">
+          <div class="section-header"><h2>Publishable key</h2><button class="add-btn" type="button">＋&nbsp; New publishable key</button></div>
+          <p class="key-note">This key is safe to use in a browser if you have enabled Row Level Security (RLS) for your tables and<br>configured policies.</p>
+          <table class="key-table">
+            <thead><tr><th scope="col">Name</th><th scope="col">API Key</th><th scope="col"></th></tr></thead>
+            <tbody>
+              <tr>
+                <td><div class="key-name">default</div><span class="key-note">No description</span></td>
+                <td><div class="key-value"><span class="token" data-key="sb_publishable_YBVU1SfMNwUEPCJp4zG3EA_UbeXVd5dG6H">sb_publishable_YBVU1SfMNwUEPCJp4zG3EA_UbeXV...</span><button class="eye" type="button" aria-label="Reveal key"></button></div></td>
+                <td><button class="dots" type="button" aria-label="More options"></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="api-keys.js"></script>
+</body>
+</html>
