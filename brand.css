@@ -1,82 +1,79 @@
 /* ============================================================
-   THE TAX CUP — Dark Editorial Design System v3
-   Palette: Deep Obsidian · Burnished Gold · Warm Ivory
-   Aesthetic: Bloomberg × Stripe × The Economist
-   Built for trust, precision and gravitas.
+   THE TAX CUP — Milk & Gold Luxury Design System v4
+   Palette: Warm Milk · Burnished Gold · Deep Charcoal Espresso
+   Aesthetic: Premium Fintech × Swiss Private Banking × Architectural
+   Motto: Simplifying Tax & Compliance for Businesses
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=DM+Mono:wght@400;500&display=swap');
 
 :root {
-  /* ── Dark Foundation ── */
-  --bg:              #080C14;
-  --bg-2:            #0D1220;
-  --surface:         #111827;
-  --surface-2:       #1A2235;
-  --surface-3:       #202C42;
-  --sunken:          #060912;
+  /* ── Warm Milk Foundation ── */
+  --bg:              #FAF7F2;  /* Warm ivory milk */
+  --bg-2:            #F3EDE2;  /* Soft latte cream */
+  --surface:         #FFFFFF;  /* Crisp milk surface */
+  --surface-2:       #FAF6EF;  /* Warm cream card */
+  --surface-3:       #F1EADB;  /* Deep clotted cream */
+  --sunken:          #EFE7D8;  /* Sunken field well */
 
-  /* ── Inks (on dark) ── */
-  --ink:             #F5F0E8;
-  --ink-body:        #BEC5D4;
-  --ink-muted:       #6B7A99;
-  --ink-faint:       #3D4A62;
+  /* ── Deep Charcoal Espresso Inks (Ultra-clear contrast on light) ── */
+  --ink:             #1A1612;  /* Deep obsidian espresso */
+  --ink-body:        #3E372F;  /* Warm charcoal body text */
+  --ink-muted:       #736859;  /* Refined warm slate */
+  --ink-faint:       #9E9282;  /* Muted warm grey */
 
-  /* ── Gold Accent — Burnished, not garish ── */
-  --gold:            #D4A843;
-  --gold-hover:      #E5BB55;
-  --gold-dim:        #B8892B;
-  --gold-soft:       rgba(212, 168, 67, 0.12);
-  --gold-ring:       rgba(212, 168, 67, 0.28);
-  --gold-gradient:   linear-gradient(135deg, #E5BB55 0%, #D4A843 55%, #B8892B 100%);
-  --gold-glow:       0 0 32px rgba(212, 168, 67, 0.35);
+  /* ── Burnished Royal Gold Accent ── */
+  --gold:            #C59A3F;  /* Burnished royal gold */
+  --gold-hover:      #D9AC4A;  /* Luminous gold hover */
+  --gold-dim:        #9E7422;  /* Deep antique gold */
+  --gold-text:       #8A6418;  /* High-contrast readable gold */
+  --gold-soft:       rgba(197, 154, 63, 0.12);
+  --gold-ring:       rgba(197, 154, 63, 0.28);
+  --gold-gradient:   linear-gradient(135deg, #DFB14E 0%, #C59A3F 55%, #A67822 100%);
+  --gold-glow:       0 4px 24px rgba(197, 154, 63, 0.24);
 
-  /* ── Structural Lines ── */
-  --line:            rgba(255, 255, 255, 0.08);
-  --line-medium:     rgba(255, 255, 255, 0.12);
-  --line-strong:     rgba(255, 255, 255, 0.20);
+  /* ── Delicate Gold Hairlines ── */
+  --line:            rgba(180, 140, 60, 0.16);
+  --line-light:      rgba(180, 140, 60, 0.08);
+  --line-medium:     rgba(180, 140, 60, 0.24);
+  --line-strong:     rgba(180, 140, 60, 0.38);
 
-  /* ── State Colors ── */
-  --green:           #22C55E;
-  --green-dim:       #16A34A;
-  --green-soft:      rgba(34, 197, 94, 0.12);
-  --red:             #F87171;
-  --red-dim:         #EF4444;
-  --red-soft:        rgba(248, 113, 113, 0.12);
+  /* ── Status Accents ── */
+  --green:           #15803D;
+  --green-dim:       #166534;
+  --green-soft:      rgba(21, 128, 61, 0.10);
+  --red:             #DC2626;
+  --red-dim:         #B91C1C;
+  --red-soft:        rgba(220, 38, 38, 0.10);
 
-  /* ── Legacy aliases for backward compatibility ── */
-  --ink-body:        #BEC5D4;
-  --ink-muted:       #6B7A99;
-  --espresso-from:   #080C14;
-  --espresso-to:     #0D1220;
-  --espresso-surface:#111827;
-  --espresso-text:   #F5F0E8;
-  --espresso-muted:  #6B7A99;
-  --espresso-border: rgba(255, 255, 255, 0.08);
-  --line-light:      rgba(255, 255, 255, 0.06);
-  --line-soft:       rgba(255, 255, 255, 0.06);
-  --dark-900:        #080C14;
-  --dark-800:        #0D1220;
-  --dark-700:        #111827;
-  --gold-light:      #D4A843;
-  --green-success:   #22C55E;
-  --green-soft:      rgba(34, 197, 94, 0.12);
-  --red-alert:       #F87171;
-  --red-soft:        rgba(248, 113, 113, 0.12);
-  --paper:           #080C14;
-  --paper-soft:      #111827;
-  --card-bg:         #111827;
-  --panel:           #111827;
-  --cream:           #111827;
+  /* ── Backward Compatibility Aliases ── */
+  --espresso-from:   #FAF7F2;
+  --espresso-to:     #F3EDE2;
+  --espresso-surface:#FFFFFF;
+  --espresso-text:   #1A1612;
+  --espresso-muted:  #736859;
+  --espresso-border: rgba(180, 140, 60, 0.16);
+  --line-soft:       rgba(180, 140, 60, 0.08);
+  --dark-900:        #FAF7F2;
+  --dark-800:        #F3EDE2;
+  --dark-700:        #FFFFFF;
+  --gold-light:      #C59A3F;
+  --green-success:   #15803D;
+  --red-alert:       #DC2626;
+  --paper:           #FAF7F2;
+  --paper-soft:      #FFFFFF;
+  --card-bg:         #FFFFFF;
+  --panel:           #FFFFFF;
+  --cream:           #FAF7F2;
   --sans:            var(--font-sans);
   --mono:            var(--font-mono);
-  --subtle:          #6B7A99;
-  --muted:           #6B7A99;
-  --dark:            #F5F0E8;
-  --dark-2:          #BEC5D4;
-  --dark-3:          #BEC5D4;
-  --ink-2:           #BEC5D4;
-  --ink-secondary:   #BEC5D4;
+  --subtle:          #736859;
+  --muted:           #736859;
+  --dark:            #1A1612;
+  --dark-2:          #3E372F;
+  --dark-3:          #736859;
+  --ink-2:           #3E372F;
+  --ink-secondary:   #736859;
 
   /* ── Spacing Scale ── */
   --space-1: 4px;
@@ -91,22 +88,22 @@
   --space-32: 128px;
 
   /* ── Radius Scale ── */
-  --radius-sm:   4px;
-  --radius-md:   8px;
-  --radius-card: 12px;
-  --radius-lg:   16px;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-card: 14px;
+  --radius-lg:   18px;
   --radius-xl:   24px;
-  --r-sm: 4px;
-  --r-md: 8px;
-  --r-lg: 12px;
-  --r-xl: 16px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 18px;
 
-  /* ── Shadows (dark-mode luminous) ── */
-  --shadow-xs:       0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-sm:       0 2px 6px rgba(0, 0, 0, 0.4);
-  --shadow-md:       0 8px 24px rgba(0, 0, 0, 0.5);
-  --shadow-lg:       0 20px 48px rgba(0, 0, 0, 0.6);
-  --shadow-floating: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+  /* ── Shadows (Warm Milk & Gold Elegance) ── */
+  --shadow-xs:       0 1px 2px rgba(80, 50, 15, 0.04);
+  --shadow-sm:       0 2px 6px rgba(80, 50, 15, 0.05);
+  --shadow-md:       0 8px 24px rgba(80, 50, 15, 0.07);
+  --shadow-lg:       0 20px 48px rgba(80, 50, 15, 0.10);
+  --shadow-floating: 0 12px 36px rgba(80, 50, 15, 0.12), 0 2px 8px rgba(80, 50, 15, 0.04);
   --shadow-gold:     0 0 0 3px var(--gold-ring);
 
   /* ── Motion Tokens ── */
@@ -154,10 +151,10 @@ body {
 }
 
 /* ── Scrollbar Styling ── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: var(--gold-dim); }
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: var(--bg-2); }
+::-webkit-scrollbar-thumb { background: #D5C9B3; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
 /* ── Typography ── */
 h1, h2, h3, h4, h5, h6 {
@@ -165,12 +162,12 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   letter-spacing: -0.03em;
   color: var(--ink);
-  line-height: 1.12;
+  line-height: 1.15;
 }
 
-h1 { font-size: clamp(40px, 5vw, 72px); font-weight: 600; }
-h2 { font-size: clamp(28px, 3.5vw, 48px); font-weight: 600; }
-h3 { font-size: clamp(20px, 2vw, 28px); font-weight: 500; }
+h1 { font-size: clamp(38px, 4.8vw, 68px); font-weight: 600; }
+h2 { font-size: clamp(26px, 3.2vw, 44px); font-weight: 600; }
+h3 { font-size: clamp(19px, 2vw, 26px); font-weight: 500; }
 h4 { font-size: 18px; font-weight: 500; }
 
 p {
@@ -198,7 +195,7 @@ table, .calc-digits, .metric strong, .numeric, [data-num], #net-result, .money-i
 }
 
 ::selection {
-  background: rgba(212, 168, 67, 0.25);
+  background: rgba(197, 154, 63, 0.22);
   color: var(--ink);
 }
 
@@ -226,18 +223,20 @@ table, .calc-digits, .metric strong, .numeric, [data-num], #net-result, .money-i
 
 .btn:active { transform: scale(0.97); }
 
-/* Primary — Gold gradient */
+/* Primary — Golden luxury */
 .btn-primary {
   background: var(--gold-gradient);
-  color: #0a0800;
+  color: #1A1612;
   border-color: transparent;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 0 0 1px rgba(212,168,67,0.3);
+  box-shadow: 0 2px 8px rgba(197, 154, 63, 0.32), 0 1px 2px rgba(80, 50, 15, 0.08);
+  font-weight: 600;
 }
 
 .btn-primary:hover {
-  box-shadow: var(--gold-glow), 0 1px 3px rgba(0,0,0,0.3);
-  filter: brightness(1.06);
+  box-shadow: var(--gold-glow), 0 4px 16px rgba(197, 154, 63, 0.35);
+  filter: brightness(1.05);
   transform: translateY(-1px);
+  color: #1A1612;
 }
 
 .btn-primary .btn-chevron {
@@ -245,39 +244,41 @@ table, .calc-digits, .metric strong, .numeric, [data-num], #net-result, .money-i
 }
 .btn-primary:hover .btn-chevron { transform: translateX(3px); }
 
-/* Secondary / Dark panels CTA */
+/* Secondary CTA */
 .btn-dark {
   background: var(--gold-gradient);
-  color: #0a0800;
+  color: #1A1612;
   border-color: transparent;
 }
 .btn-dark:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.06);
   box-shadow: var(--gold-glow);
 }
 
 /* Outline Ghost */
 .btn-outline {
-  background: transparent;
+  background: #FFFFFF;
   color: var(--ink);
-  border-color: var(--line-medium);
+  border: 1px solid var(--line-medium);
+  box-shadow: 0 1px 3px rgba(80, 50, 15, 0.03);
 }
 .btn-outline:hover {
-  background: var(--surface);
+  background: var(--surface-2);
   border-color: var(--gold);
-  color: var(--gold);
+  color: var(--gold-text);
+  transform: translateY(-1px);
 }
 
-/* Dark outline (on dark sections) */
+/* Dark outline */
 .btn-outline-dark {
-  background: rgba(255,255,255,0.05);
+  background: #FFFFFF;
   color: var(--ink);
-  border-color: var(--line-medium);
+  border: 1px solid var(--line-medium);
 }
 .btn-outline-dark:hover {
-  background: rgba(212,168,67,0.1);
-  border-color: rgba(212,168,67,0.5);
-  color: var(--gold);
+  background: var(--surface-2);
+  border-color: var(--gold);
+  color: var(--gold-text);
 }
 
 /* Large variant */
@@ -288,16 +289,18 @@ table, .calc-digits, .metric strong, .numeric, [data-num], #net-result, .money-i
   border-radius: var(--radius-card);
 }
 
-/* Ghost gold */
+/* Gold button */
 .btn-gold {
   background: var(--gold-gradient);
-  color: #0a0800;
+  color: #1A1612;
   border-color: transparent;
   font-weight: 700;
+  box-shadow: 0 2px 8px rgba(197, 154, 63, 0.3);
 }
 .btn-gold:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.05);
   box-shadow: var(--gold-glow);
+  color: #1A1612;
 }
 
 /* ── Input Controls ── */
@@ -324,9 +327,10 @@ input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--gold);
   box-shadow: 0 0 0 3px var(--gold-ring);
+  background: #FFFFFF;
 }
 
-input::placeholder { color: var(--ink-muted); }
+input::placeholder { color: var(--ink-faint); }
 select option { background: var(--surface); color: var(--ink); }
 
 /* ── App Navigation (inner pages) ── */
@@ -334,7 +338,7 @@ select option { background: var(--surface); color: var(--ink); }
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(8, 12, 20, 0.92);
+  background: rgba(250, 247, 242, 0.94);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--line);
@@ -342,15 +346,15 @@ select option { background: var(--surface); color: var(--ink); }
 }
 
 .app-nav.scrolled {
-  background: rgba(8, 12, 20, 0.98);
-  box-shadow: var(--shadow-floating);
+  background: rgba(250, 247, 242, 0.98);
+  box-shadow: var(--shadow-sm);
 }
 
 .nav-scroll-progress {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 1.5px;
+  height: 2px;
   width: 0%;
   background: var(--gold-gradient);
   transition: width 60ms linear;
@@ -389,10 +393,10 @@ select option { background: var(--surface); color: var(--ink); }
 }
 
 .nav-brand-tagline {
-  font-size: 10.5px;
-  font-weight: 400;
-  color: var(--ink-muted);
-  letter-spacing: 0.02em;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gold-text);
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   margin-top: 1px;
 }
@@ -400,7 +404,7 @@ select option { background: var(--surface); color: var(--ink); }
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   list-style: none;
 }
 
@@ -423,16 +427,16 @@ select option { background: var(--surface); color: var(--ink); }
   bottom: -1px;
   left: 12px;
   right: 12px;
-  height: 1.5px;
+  height: 2px;
   background: var(--gold);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--duration-base) var(--ease-standard);
 }
 
-.nav-item-link:hover { color: var(--ink); }
+.nav-item-link:hover { color: var(--ink); background: rgba(197, 154, 63, 0.06); }
 .nav-item-link:hover::after, .nav-item-link.active::after { transform: scaleX(1); }
-.nav-item-link.active { color: var(--ink); font-weight: 600; }
+.nav-item-link.active { color: var(--gold-text); font-weight: 600; }
 
 .nav-actions {
   display: flex;
@@ -447,11 +451,11 @@ select option { background: var(--surface); color: var(--ink); }
   text-decoration: none;
   transition: color var(--duration-fast);
 }
-.nav-link-quiet:hover { color: var(--gold); }
+.nav-link-quiet:hover { color: var(--gold-text); }
 
 /* ── Multi-column Footer ── */
 .app-footer {
-  background: var(--sunken);
+  background: var(--bg-2);
   border-top: 1px solid var(--line);
   padding: var(--space-24) 0 var(--space-12);
   margin-top: auto;
@@ -476,7 +480,7 @@ select option { background: var(--surface); color: var(--ink); }
   font-size: 14px;
   line-height: 1.65;
   color: var(--ink-muted);
-  max-width: 300px;
+  max-width: 320px;
 }
 
 .footer-col-title {
@@ -485,7 +489,7 @@ select option { background: var(--surface); color: var(--ink); }
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-text);
   margin-bottom: var(--space-4);
 }
 
@@ -516,7 +520,7 @@ select option { background: var(--surface); color: var(--ink); }
   font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 700;
-  color: var(--gold);
+  color: var(--gold-text);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }

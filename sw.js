@@ -1,5 +1,5 @@
 // Cache version — increment this whenever you deploy new CSS/HTML/JS changes
-const CACHE_NAME = 'tax-cup-pwa-v10';
+const CACHE_NAME = 'tax-cup-milk-v1';
 const APP_SHELL = [
   './',
   './index.html',

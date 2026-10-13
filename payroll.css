@@ -1,38 +1,39 @@
 /* ============================================================
-   THE TAX CUP — Payroll Control Room · Dark Theme
-   Palette: Deep Obsidian · Burnished Gold · Warm Ivory
+   THE TAX CUP — Payroll Control Room · Milk & Gold Theme
+   Palette: Warm Milk · Burnished Gold · Deep Charcoal Espresso
    ============================================================ */
 
 :root {
-  --bg:              #080C14;
-  --surface:         #111827;
-  --sunken:          #060912;
-  --surface-2:       #1A2235;
-  --surface-3:       #202C42;
-  --ink:             #F5F0E8;
-  --ink-body:        #BEC5D4;
-  --ink-muted:       #6B7A99;
+  --bg:              #FAF7F2;
+  --surface:         #FFFFFF;
+  --sunken:          #EFE7D8;
+  --surface-2:       #FAF6EF;
+  --surface-3:       #F1EADB;
+  --ink:             #1A1612;
+  --ink-body:        #3E372F;
+  --ink-muted:       #736859;
 
-  --gold:            #D4A843;
-  --gold-hover:      #E5BB55;
-  --gold-dim:        #B8892B;
-  --gold-soft:       rgba(212, 168, 67, 0.12);
-  --gold-ring:       rgba(212, 168, 67, 0.28);
-  --gold-gradient:   linear-gradient(135deg, #E5BB55 0%, #D4A843 55%, #B8892B 100%);
+  --gold:            #C59A3F;
+  --gold-hover:      #D9AC4A;
+  --gold-dim:        #9E7422;
+  --gold-text:       #8A6418;
+  --gold-soft:       rgba(197, 154, 63, 0.12);
+  --gold-ring:       rgba(197, 154, 63, 0.28);
+  --gold-gradient:   linear-gradient(135deg, #DFB14E 0%, #C59A3F 55%, #A67822 100%);
 
-  --espresso-from:   #080C14;
-  --espresso-to:     #0D1220;
-  --espresso-surface:#111827;
+  --espresso-from:   #FAF7F2;
+  --espresso-to:     #F3EDE2;
+  --espresso-surface:#FFFFFF;
 
-  --line:            rgba(255, 255, 255, 0.07);
-  --line-light:      rgba(255, 255, 255, 0.05);
-  --line-strong:     rgba(255, 255, 255, 0.15);
-  --line-medium:     rgba(255, 255, 255, 0.10);
+  --line:            rgba(180, 140, 60, 0.16);
+  --line-light:      rgba(180, 140, 60, 0.08);
+  --line-strong:     rgba(180, 140, 60, 0.36);
+  --line-medium:     rgba(180, 140, 60, 0.22);
 
-  --green:           #22C55E;
-  --green-soft:      rgba(34, 197, 94, 0.12);
-  --red:             #F87171;
-  --red-soft:        rgba(248, 113, 113, 0.12);
+  --green:           #15803D;
+  --green-soft:      rgba(21, 128, 61, 0.10);
+  --red:             #DC2626;
+  --red-soft:        rgba(220, 38, 38, 0.10);
   --blue:            #60A5FA;
   --blue-soft:       rgba(96, 165, 250, 0.12);
   --amber:           #FBBF24;

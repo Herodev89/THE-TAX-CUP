@@ -7,27 +7,29 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="brand.css?v=dark-v3">
+  <link rel="stylesheet" href="brand.css?v=milk-v1">
   <style>
     :root {
-      --bg: #080C14;
-      --surface: #111827;
-      --sunken: #060912;
-      --surface-2: #1A2235;
-      --ink: #F5F0E8;
-      --ink-body: #BEC5D4;
-      --ink-muted: #6B7A99;
-      --gold: #D4A843;
-      --gold-hover: #E5BB55;
-      --gold-soft: rgba(212, 168, 67, 0.12);
-      --gold-ring: rgba(212, 168, 67, 0.28);
-      --gold-gradient: linear-gradient(135deg, #E5BB55 0%, #D4A843 55%, #B8892B 100%);
-      --espresso-from: #080C14;
-      --espresso-to: #0D1220;
-      --line: rgba(255, 255, 255, 0.08);
-      --line-medium: rgba(255, 255, 255, 0.12);
-      --red: #F87171;
-      --red-soft: rgba(248, 113, 113, 0.12);
+      --bg: #FAF7F2;
+      --surface: #FFFFFF;
+      --sunken: #EFE7D8;
+      --surface-2: #FAF6EF;
+      --ink: #1A1612;
+      --ink-body: #3E372F;
+      --ink-muted: #736859;
+      --gold: #C59A3F;
+      --gold-hover: #D9AC4A;
+      --gold-dim: #9E7422;
+      --gold-text: #8A6418;
+      --gold-soft: rgba(197, 154, 63, 0.12);
+      --gold-ring: rgba(197, 154, 63, 0.28);
+      --gold-gradient: linear-gradient(135deg, #DFB14E 0%, #C59A3F 55%, #A67822 100%);
+      --espresso-from: #FAF7F2;
+      --espresso-to: #F3EDE2;
+      --line: rgba(180, 140, 60, 0.16);
+      --line-medium: rgba(180, 140, 60, 0.24);
+      --red: #DC2626;
+      --red-soft: rgba(220, 38, 38, 0.10);
       --font-serif: 'Fraunces', Georgia, serif;
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'DM Mono', monospace;
@@ -57,8 +59,8 @@
       line-height: 1.6;
       font-feature-settings: "cv02", "cv03", "cv04", "cv11";
       background-image:
-        radial-gradient(ellipse 70% 50% at 50% -10%, rgba(212, 168, 67, 0.08), transparent 60%),
-        radial-gradient(rgba(255,255,255,0.03) 0.75px, transparent 0.75px);
+        radial-gradient(ellipse 70% 50% at 50% -10%, rgba(197, 154, 63, 0.12), transparent 60%),
+        radial-gradient(rgba(180, 140, 60, 0.08) 0.75px, transparent 0.75px);
       background-size: 100% 100%, 28px 28px;
     }
 
@@ -70,16 +72,16 @@
       min-height: 560px;
       border-radius: 20px;
       overflow: hidden;
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.10);
+      background: #FFFFFF;
+      border: 1px solid rgba(180, 140, 60, 0.22);
       box-shadow:
-        0 2px 8px rgba(0,0,0,0.4),
-        0 24px 60px rgba(0,0,0,0.6);
+        0 4px 16px rgba(80, 50, 15, 0.06),
+        0 24px 60px rgba(80, 50, 15, 0.10);
     }
 
-    /* Left panel — cinematic dark atmosphere with background image */
+    /* Left panel — warm espresso with background image */
     .login-brand {
-      background: linear-gradient(155deg, #080C14 0%, #0D1220 100%);
+      background: linear-gradient(155deg, rgba(26,22,18,0.92) 0%, rgba(38,32,24,0.85) 100%);
       background-image: url('hero-team.jpg');
       background-size: cover;
       background-position: center;
@@ -89,15 +91,15 @@
       justify-content: space-between;
       position: relative;
       overflow: hidden;
-      color: #F5F0E8;
-      border-right: 1px solid rgba(255,255,255,0.07);
+      color: #FAF8F5;
+      border-right: 1px solid rgba(180, 140, 60, 0.20);
     }
 
     .login-brand::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(155deg, rgba(8,12,20,0.9) 0%, rgba(13,18,32,0.8) 100%);
+      background: linear-gradient(155deg, rgba(26,22,18,0.92) 0%, rgba(38,32,24,0.85) 100%);
       pointer-events: none;
       z-index: 0;
     }
@@ -107,7 +109,7 @@
       position: absolute;
       bottom: 0; right: 0;
       width: 100%; height: 40%;
-      background: linear-gradient(to top, rgba(8,12,20,0.6) 0%, transparent 100%);
+      background: linear-gradient(to top, rgba(26,22,18,0.7) 0%, transparent 100%);
       pointer-events: none;
       z-index: 0;
     }
@@ -439,7 +441,7 @@
         <img src="tax-cup-logo.svg" alt="The Tax Cup logo">
         <div>
           <div class="brand-block-name">THE <em>TAX</em> CUP</div>
-          <span class="brand-block-tag">Simplifying Tax &amp; Compliance</span>
+          <span class="brand-block-tag">Simplifying Tax &amp; Compliance for Businesses</span>
         </div>
       </div>
 
