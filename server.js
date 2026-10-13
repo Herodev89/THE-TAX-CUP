@@ -149,8 +149,8 @@ function requireAdministrator(req, res, next) {
 
 // Redirect unauthenticated HTML requests to login.html
 app.use((req, res, next) => {
-  const requestedPage = path.basename(req.path || '') || 'index.html';
-  const needsAuth = req.method === 'GET' && requestedPage.endsWith('.html') && requestedPage !== 'login.html' && requestedPage !== 'landing.html' && !req.path.startsWith('/api/');
+  const requestedPage = path.basename(req.path || '');
+  const needsAuth = req.method === 'GET' && requestedPage.endsWith('.html') && requestedPage !== 'login.html' && requestedPage !== 'landing.html' && req.path !== '/' && !req.path.startsWith('/api/');
   if (needsAuth) {
     const user = getSessionUser(req);
     if (!user) {
