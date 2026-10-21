@@ -21,13 +21,25 @@ const demoEnabled = !isProduction && process.env.DEMO_MODE !== 'false';
 function loadSessionSecret() {
   const fromEnv = process.env.SESSION_SECRET;
   if (fromEnv) {
-    if (fromEnv.length < 32) throw new Error('SESSION_SECRET must be at least 32 characters long.');
-    return fromEnv;
+    if (fromEnv.length < 32) return { error: `SESSION_SECRET is only ${fromEnv.length} characters long. It must be at least 32 characters.` };
+    return { secret: fromEnv };
   }
-  if (isProduction) throw new Error('SESSION_SECRET must be set in production so every server instance signs sessions with the same key.');
-  return store.readOrCreateSecret();
+  if (isProduction) return { error: 'SESSION_SECRET is not set. Production needs it so every server instance signs sign-in sessions with the same key.' };
+  return { secret: store.readOrCreateSecret() };
 }
-const sessionSecret = loadSessionSecret();
+const { secret: sessionSecret, error: configError } = loadSessionSecret();
+
+// Without a valid secret nobody can sign in safely, so explain the fix instead of crashing.
+if (configError) {
+  console.error(`[config] ${configError}`);
+  app.use((req, res) => {
+    res.status(503).setHeader('Cache-Control', 'no-store');
+    if (req.path.startsWith('/api/')) return res.json({ ok: false, message: `Server not configured: ${configError}` });
+    res.type('html').send(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Setup needed · The Tax Cup</title>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#F7F3EC;font:16px/1.6 system-ui,sans-serif;color:#3E372F}main{max-width:560px;margin:24px;padding:36px;background:#fff;border:1px solid #ECE4D6;border-radius:18px}h1{margin:0 0 8px;color:#1A1612;font-size:24px}b{color:#8A6418}code{background:#F4EEE3;padding:2px 6px;border-radius:6px}ol{padding-left:20px}</style></head>
+<body><main><h1>The Tax Cup needs one more setting</h1><p><b>${configError.replace(/[<>&]/g, '')}</b></p><ol><li>Open your hosting dashboard (on Vercel: <em>Project → Settings → Environment Variables</em>).</li><li>Add <code>SESSION_SECRET</code> with a random value of 32+ characters.</li><li>Also add <code>ADMIN_EMAIL</code> and <code>ADMIN_PASSWORD</code> for the first administrator.</li><li>Redeploy.</li></ol></main></body></html>`);
+  });
+}
 
 if (process.env.TRUST_PROXY) app.set('trust proxy', Number(process.env.TRUST_PROXY) || process.env.TRUST_PROXY);
 else if (process.env.VERCEL) app.set('trust proxy', 1);
