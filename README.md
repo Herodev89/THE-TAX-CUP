@@ -40,14 +40,26 @@ Confirm individual exemptions with a qualified adviser before processing payroll
 ## Project layout
 
 ```
-server.js            Express server: auth, sessions, permissions, API, page routes
-lib/store.js         JSON-file storage (swap for a database in production)
-public/              Everything the browser can load — nothing else is served
-  assets/css/        app.css (workspace) and site.css (landing + login)
-  assets/js/         tax-engine.js, app.js (shell), one script per page
-data/                Users, employees, records, runs, archive, audit (git-ignored)
-test/                Tax engine tests
-_old-ui/             The previous interface, kept for reference (git-ignored, not served)
+server.js            App entrypoint: security, bootstrap, routing, static pages
+lib/
+  db.js              Supabase database client with camelCase mapping & local fallback
+  helpers.js         Payroll helpers, calculators, and validation utilities
+  store.js           Local JSON file storage fallback (for offline development)
+middleware/
+  auth.js            Session authentication, cookie handling, RBAC permissions
+  security.js        CSP, CSRF protection, and rate limiting
+routes/
+  auth.js            /api/login, /api/logout, /api/session, /api/health
+  users.js           /api/users (user administration)
+  employees.js       /api/employees (employee directory)
+  payroll.js         /api/records, /api/runs (payroll workflow & runs)
+  archive.js         /api/archive (single & batch calculation archives)
+  audit.js           /api/audit (audit trail logs)
+  import.js          /api/import (migration from older browser localStorage)
+supabase/
+  migration.sql      PostgreSQL schema for Supabase
+public/              Static assets, HTML pages, CSS, and client-side scripts
+test/                Integration tests (api.test.js) & engine tests (tax-engine.test.js)
 ```
 
 ## Security model
@@ -67,21 +79,29 @@ _old-ui/             The previous interface, kept for reference (git-ignored, no
 - Finalised and paid records are locked. Editing an approved record sends it back to review.
 - The audit trail is written by the server with the signed-in user's name.
 
-## Deploying
+## Deploying to Vercel with Supabase
 
-Set these environment variables:
+1. **Create a Supabase Project**:
+   - Go to [supabase.com](https://supabase.com) and create a new project.
+   - In Supabase, open **SQL Editor**, paste the contents of [`supabase/migration.sql`](file:///c:/Users/PC/Downloads/PAYE%20Calculator/PAYE%20Calculator/supabase/migration.sql), and click **Run**.
+   - Under **Project Settings → API**, copy your **Project URL** and **`service_role` key** (secret).
+
+2. **Configure Environment Variables (in Vercel)**:
 
 | Variable | Purpose |
 |---|---|
-| `NODE_ENV=production` | Turns off demo mode and enables secure cookies |
-| `SESSION_SECRET` | **Required in production.** A random string of 32+ characters |
-| `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `ADMIN_NAME` | Creates the first administrator when no active administrator exists |
-| `DATA_DIR` | Where data files are stored (default `./data`) |
-| `TRUST_PROXY` | Set to `1` behind a reverse proxy (automatic on Vercel) |
+| `NODE_ENV=production` | Enables secure cookies and disables demo mode |
+| `SESSION_SECRET` | Random string of 32+ characters for signing session cookies |
+| `SUPABASE_URL` | Your Supabase Project URL (`https://xxxx.supabase.co`) |
+| `SUPABASE_SERVICE_KEY` | Your Supabase `service_role` secret key |
+| `ADMIN_EMAIL` | Email for your Super Administrator account |
+| `ADMIN_PASSWORD` | Strong password (8+ characters) |
+| `ADMIN_NAME` | Administrator display name (optional, defaults to "Administrator") |
+| `TRUST_PROXY=1` | Required behind Vercel reverse proxy |
 
-In production the old demo account is disabled automatically if it still uses `demo-password`.
-
-**Vercel note:** Vercel's file system is read-only, so saving employees, records or users will fail there with a clear "storage is read-only" message. For Vercel, replace `lib/store.js` with a database (e.g. Supabase/Postgres) — it is the only file that touches storage. A normal server or VPS with a persistent disk works as is.
+3. **Deploy**:
+   - Push to GitHub and deploy on Vercel.
+   - The app will connect to Supabase, bootstrap your Super Administrator, and persist sessions across serverless invocations without instant logouts.
 
 ## Moving data from the previous version
 

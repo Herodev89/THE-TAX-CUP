@@ -44,3 +44,29 @@ test('net-to-gross solver round-trips', () => {
   const result = TaxEngine.grossForNet(350000, { annualRent: 1200000 });
   near(Math.round(result.net * 100) / 100, 350000);
 });
+
+test('zero and negative monthly gross produce 0 tax and 0 deductions', () => {
+  const zero = TaxEngine.compute(0);
+  near(zero.gross, 0);
+  near(zero.paye, 0);
+  near(zero.net, 0);
+
+  const neg = TaxEngine.compute(-50000);
+  near(neg.gross, 0);
+  near(neg.paye, 0);
+  near(neg.net, 0);
+});
+
+test('handles high net-worth executive income (>₦100m monthly)', () => {
+  const result = TaxEngine.compute(100000000); // ₦1.2B annual
+  assert.ok(result.paye > 0);
+  assert.ok(result.net > 0);
+  assert.ok(result.net < result.gross);
+  near(result.gross, result.net + result.paye + result.pension + result.nhf);
+});
+
+test('handles zero and negative rent relief gracefully', () => {
+  near(TaxEngine.rentRelief(0), 0);
+  near(TaxEngine.rentRelief(-500000), 0);
+});
+

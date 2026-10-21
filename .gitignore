@@ -5,6 +5,9 @@ node_modules.rar
 * - Copy.*
 .vercel
 .env
+.env.*
+.session-secret
 data/
 _old-ui/
 *.csv
+
