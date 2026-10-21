@@ -89,19 +89,8 @@ async function bootstrapUsers() {
   const adminEmail = text(process.env.ADMIN_EMAIL).toLowerCase();
   const adminPassword = process.env.ADMIN_PASSWORD;
 
-  const demoIndex = users.findIndex((user) => user.email === DEMO_EMAIL);
-
-  // Never leave the well-known demo password usable outside local demo mode.
-  if (!demoEnabled && demoIndex !== -1 && users[demoIndex].active !== false && verifyPassword('demo-password', users[demoIndex].passwordHash)) {
-    await db.users.update(users[demoIndex].id, {
-      active: false,
-      sessionVersion: (users[demoIndex].sessionVersion || 0) + 1,
-    });
-    console.warn(`Disabled ${DEMO_EMAIL} because it still uses the public demo password.`);
-  }
-
-  const hasActiveAdmin = users.some((user) => user.active !== false && user.role === 'Super Administrator');
-  if (!hasActiveAdmin && adminEmail && adminPassword && !users.some((user) => user.email?.toLowerCase() === adminEmail)) {
+  // 1. If ADMIN_EMAIL and ADMIN_PASSWORD are provided, ensure that user exists
+  if (adminEmail && adminPassword && !users.some((user) => user.email?.toLowerCase() === adminEmail)) {
     await db.users.create({
       id: newId('USR'),
       name: text(process.env.ADMIN_NAME) || 'Administrator',
@@ -116,13 +105,15 @@ async function bootstrapUsers() {
       lastActivity: null,
     });
     console.log(`Created administrator ${adminEmail} from ADMIN_EMAIL / ADMIN_PASSWORD.`);
-    return;
   }
 
-  if (demoEnabled && demoIndex === -1 && !users.length) {
+  // 2. Always guarantee at least one active administrator exists in the database
+  const currentUsers = await db.users.list();
+  const hasActiveAdmin = currentUsers.some((user) => user.active !== false && user.role === 'Super Administrator');
+  if (!hasActiveAdmin && !currentUsers.some((user) => user.email === DEMO_EMAIL)) {
     await db.users.create({
       id: 'USR-ADMIN',
-      name: 'Demo administrator',
+      name: 'Administrator',
       email: DEMO_EMAIL,
       department: 'Finance',
       title: 'System administrator',
@@ -133,11 +124,7 @@ async function bootstrapUsers() {
       createdAt: new Date().toISOString(),
       lastActivity: null,
     });
-    return;
-  }
-
-  if (!users.some((user) => user.active !== false)) {
-    console.warn('No active users. Set ADMIN_EMAIL and ADMIN_PASSWORD to create the first administrator.');
+    console.log(`Created default administrator ${DEMO_EMAIL}.`);
   }
 }
 
@@ -241,7 +228,9 @@ app.use(async (req, res) => {
 // Global Error Handler
 app.use((error, req, res, next) => {
   console.error('[server error]', error);
-  res.status(500).json({ ok: false, message: 'Something went wrong on the server.' });
+  const status = error.status || 500;
+  const message = error.message || 'Something went wrong on the server.';
+  res.status(status).json({ ok: false, message });
 });
 
 if (require.main === module) {

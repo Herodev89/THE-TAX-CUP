@@ -15,14 +15,22 @@ const { loginLimiter } = require('../middleware/security');
 function createAuthRouter({ sessionSecret, isProduction, demoEnabled }) {
   const router = express.Router();
 
-  router.get('/health', (req, res) => {
-    res.json({ ok: true, name: 'Tax Cup API' });
+  router.get('/health', async (req, res) => {
+    const dbHealth = await db.healthCheck();
+    res.json({ ok: true, name: 'Tax Cup API', database: dbHealth });
   });
 
-  router.get('/config', (req, res) => {
+  router.get('/config', async (req, res) => {
+    let showDemo = demoEnabled;
+    try {
+      const users = await db.users.list();
+      if (!users.some((u) => u.active !== false && u.email !== DEMO_EMAIL)) {
+        showDemo = true;
+      }
+    } catch {}
     res.json({
-      demo: demoEnabled,
-      demoEmail: demoEnabled ? DEMO_EMAIL : null,
+      demo: showDemo,
+      demoEmail: showDemo ? DEMO_EMAIL : null,
       databaseConfigured: db.isConfigured,
     });
   });
