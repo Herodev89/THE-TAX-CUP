@@ -4,4 +4,6 @@ node_modules.rar
 *- Copy.*
 * - Copy.*
 .git
-.session-secret
+.env
+data/
+_old-ui/

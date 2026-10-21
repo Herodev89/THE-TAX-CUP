@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#19140F">
+  <title>Sign in · The Tax Cup</title>
+  <link rel="icon" href="assets/img/tax-cup-logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <main class="auth">
+    <section class="auth-visual" aria-hidden="false">
+      <img src="https://images.unsplash.com/photo-1573496528298-f0e9d3c7ce55?auto=format&fit=crop&w=1600&q=80" alt="A finance professional working at a desktop computer in a bright office">
+      <a class="logo" href="landing.html"><img src="assets/img/tax-cup-logo.svg" alt=""><span><strong>THE <em>TAX</em> CUP</strong><small>Simplifying tax &amp; compliance</small></span></a>
+      <blockquote>
+        <p>Payroll your auditors can follow — from the first calculation to the final payment.</p>
+        <div class="auth-points">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Nigeria Tax Act 2025 bands</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Role-based approvals</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Full audit trail</span>
+        </div>
+      </blockquote>
+      <span class="photo-credit">Photo: <a href="https://unsplash.com/@wocintechchat" target="_blank" rel="noopener">#WOCinTech Chat</a> / Unsplash</span>
+    </section>
+
+    <section class="auth-form-side">
+      <div class="top">
+        <a href="landing.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back to overview</a>
+      </div>
+      <form class="auth-form" id="login-form" novalidate>
+        <span class="eyebrow">Secure workspace</span>
+        <h1>Welcome back</h1>
+        <p>Sign in with the account your administrator created for you.</p>
+
+        <div class="demo-box hidden" id="demo-box" hidden>
+          <span>Local demo: <b id="demo-email"></b></span>
+          <button type="button" id="demo-fill">Use demo account</button>
+        </div>
+
+        <div class="form-field">
+          <label for="email">Work email</label>
+          <div class="input-wrap"><input id="email" type="email" autocomplete="username" placeholder="you@company.com" required></div>
+        </div>
+        <div class="form-field">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <input id="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+            <button type="button" id="toggle-password" aria-label="Show password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+          </div>
+        </div>
+        <p class="form-error" id="login-error" role="alert"></p>
+        <button class="btn btn-primary" type="submit" id="login-submit"><span id="login-label">Sign in</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p class="auth-foot">Need access? Ask your Super Administrator to add you under <b>Control room → Users &amp; roles</b>.</p>
+      </form>
+    </section>
+  </main>
+  <script src="assets/js/login.js"></script>
+</body>
+</html>

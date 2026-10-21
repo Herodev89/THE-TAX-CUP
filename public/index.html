@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#19140F">
+  <title>PAYE Calculator · The Tax Cup</title>
+  <link rel="icon" href="assets/img/tax-cup-logo.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body data-page="calculator" data-title="PAYE calculator">
+  <div class="app-shell">
+    <div class="main">
+      <main class="content">
+        <section class="page-hero">
+          <img src="https://images.unsplash.com/photo-1573166953836-06864dc70a21?auto=format&fit=crop&w=1800&q=80" alt="" loading="eager">
+          <span class="eyebrow">Individual assessment</span>
+          <h1>PAYE &amp; take-home pay calculator</h1>
+          <p>Work out monthly PAYE, pension, NHF and net pay under the Nigeria Tax Act 2025 — or solve for the gross salary behind a target take-home.</p>
+          <span class="photo-credit">Photo: <a href="https://unsplash.com/@wocintechchat" target="_blank" rel="noopener">#WOCinTech Chat</a> / Unsplash</span>
+        </section>
+
+        <div class="print-only print-head"><div><img src="assets/img/tax-cup-logo.svg" alt=""><span><strong>THE TAX CUP</strong><small>Employee salary statement</small></span></div><span id="print-meta"></span></div>
+
+        <div class="split">
+          <form class="card no-print sticky" id="calc-form" novalidate>
+            <div class="card-head"><div><h2><span class="step-badge">1</span>Salary details</h2><p>Every change recalculates instantly.</p></div></div>
+            <div class="card-body">
+              <div class="segmented full" role="tablist" aria-label="Calculation mode">
+                <button type="button" class="active" data-mode="gross" role="tab" aria-selected="true">Gross → Net</button>
+                <button type="button" data-mode="net" role="tab" aria-selected="false">Net → Gross</button>
+              </div>
+
+              <div class="field" style="margin-top:18px">
+                <span>Employee name <small>Shown on the report</small></span>
+                <input id="employee-name" type="text" placeholder="e.g. Adaeze Okafor" autocomplete="off">
+              </div>
+
+              <div class="field" style="margin-top:14px">
+                <span><span id="salary-label">Gross salary</span>
+                  <span class="segmented" role="group" aria-label="Salary period" style="padding:2px"><button type="button" class="active" data-unit="monthly" style="padding:3px 10px;font-size:12px">Monthly</button><button type="button" data-unit="annual" style="padding:3px 10px;font-size:12px">Annual</button></span>
+                </span>
+                <div class="input-group input-xl"><span class="affix">₦</span><input id="salary" type="number" inputmode="decimal" min="0" step="any" value="500000" aria-describedby="salary-hint"><span class="affix" id="salary-suffix">/ month</span></div>
+                <p class="hint" id="salary-hint">Total monthly earnings before any deductions.</p>
+              </div>
+
+              <div class="section-title" style="margin-top:24px"><span>Salary structure</span><button class="link-btn" type="button" id="reset-allocation">Reset to 50/20/15/15</button></div>
+              <div class="alloc-grid">
+                <label class="alloc-item"><span><i class="swatch c-basic"></i>Basic</span><div class="input-group"><input class="allocation" data-allocation="basic" type="number" min="0" step="any" value="50"><span class="affix">%</span></div></label>
+                <label class="alloc-item"><span><i class="swatch c-housing"></i>Housing</span><div class="input-group"><input class="allocation" data-allocation="housing" type="number" min="0" step="any" value="20"><span class="affix">%</span></div></label>
+                <label class="alloc-item"><span><i class="swatch c-transport"></i>Transport</span><div class="input-group"><input class="allocation" data-allocation="transport" type="number" min="0" step="any" value="15"><span class="affix">%</span></div></label>
+                <label class="alloc-item"><span><i class="swatch c-other"></i>Other allowances</span><div class="input-group"><input class="allocation" data-allocation="other" type="number" min="0" step="any" value="15"><span class="affix">%</span></div></label>
+              </div>
+              <div class="alloc-meter">
+                <div class="alloc-bar" id="alloc-bar"></div>
+                <div class="alloc-status"><span>Allocated <strong id="alloc-total">100%</strong></span><span id="alloc-state" class="ok">Balanced</span></div>
+              </div>
+
+              <div class="section-title" style="margin-top:24px"><span>Reliefs &amp; deductions</span></div>
+              <label class="toggle-row"><span class="switch"><input id="pension" type="checkbox" checked><i></i></span><span class="copy"><strong>Pension contribution</strong><small>8% of basic + housing + transport · tax-deductible</small></span><span class="rate">8%</span></label>
+              <label class="toggle-row"><span class="switch"><input id="nhf" type="checkbox" checked><i></i></span><span class="copy"><strong>National Housing Fund</strong><small>2.5% of basic salary · tax-deductible</small></span><span class="rate">2.5%</span></label>
+
+              <div class="form-grid" style="margin-top:16px;grid-template-columns:1fr 1fr">
+                <label class="field"><span>Annual rent paid <small>20% relief</small></span><div class="input-group"><span class="affix">₦</span><input id="annual-rent" type="number" min="0" step="any" value="0"></div></label>
+                <label class="field"><span>NHIS <small>% of gross</small></span><div class="input-group"><input id="nhis-rate" type="number" min="0" max="100" step="0.01" value="0"><span class="affix">%</span></div></label>
+                <label class="field"><span>Other statutory <small>monthly</small></span><div class="input-group"><span class="affix">₦</span><input id="statutory" type="number" min="0" step="any" value="0"></div></label>
+                <label class="field"><span>Loans &amp; other <small>monthly</small></span><div class="input-group"><span class="affix">₦</span><input id="other" type="number" min="0" step="any" value="0"></div></label>
+              </div>
+              <p class="hint" style="margin-top:10px">Rent relief is capped at ₦500,000 a year. Other statutory deductions and loans come out of net pay and do not reduce tax.</p>
+            </div>
+          </form>
+
+          <div class="grid" style="gap:24px">
+            <section class="card">
+              <div class="card-head no-print">
+                <div><h2><span class="step-badge">2</span>Your estimate</h2><p id="report-name">Employee salary report</p></div>
+                <div class="actions"><button class="btn btn-ghost btn-sm" type="button" id="print-btn" data-icon="printer">Print / PDF</button></div>
+              </div>
+              <div class="card-body">
+                <div class="result-hero" aria-live="polite">
+                  <span class="label" id="result-label">Estimated net pay</span>
+                  <strong class="value" id="result-value">₦0</strong>
+                  <span class="sub" id="result-sub">per month</span>
+                  <div class="chips">
+                    <span>Monthly PAYE <b id="chip-paye">₦0</b></span>
+                    <span>Effective rate <b id="chip-rate">0%</b></span>
+                    <span>Annual gross <b id="chip-gross">₦0</b></span>
+                  </div>
+                </div>
+
+                <div class="section-title" style="margin-top:24px"><span>Where the money goes</span><span id="period-label">Monthly</span></div>
+                <div class="stack-bar" id="pay-bar" role="img" aria-label="Pay breakdown"></div>
+                <div class="legend" id="pay-legend"></div>
+
+                <div class="grid grid-2" style="margin-top:22px;gap:28px">
+                  <div>
+                    <div class="section-title"><span>Monthly payslip</span></div>
+                    <div class="kv" id="payslip"></div>
+                  </div>
+                  <div>
+                    <div class="section-title"><span>Annual tax computation</span></div>
+                    <div class="kv" id="annual"></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><div><h2>Progressive tax bands</h2><p>How the annual taxable income is taxed, band by band.</p></div></div>
+              <div class="card-body"><div class="band-list" id="band-list"></div></div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><div><h2>Employer cost</h2><p>Contributions the company pays on top of gross salary.</p></div></div>
+              <div class="card-body"><div class="kv" id="employer"></div></div>
+            </section>
+
+            <div class="notice"><span data-icon="info"></span><p>Estimates follow the Nigeria Tax Act 2025 PAYE bands (effective 1 January 2026). Confirm employee-specific exemptions with your payroll adviser before processing.</p></div>
+          </div>
+        </div>
+
+        <section class="card no-print" id="archive-card">
+          <div class="card-head">
+            <div><h2><span class="step-badge">3</span>Saved calculations</h2><p>Keep a monthly record of this calculation and reopen it any time.</p></div>
+            <div class="actions">
+              <label class="field" style="min-width:170px"><input id="archive-month" type="month" aria-label="Payroll month"></label>
+              <button class="btn btn-primary" type="button" id="archive-save" data-icon="save">Save calculation</button>
+            </div>
+          </div>
+          <div class="card-body" style="padding-bottom:8px">
+            <div class="search field"><span data-icon="search"></span><input id="archive-search" type="search" placeholder="Search by name or month" aria-label="Search saved calculations"></div>
+          </div>
+          <div class="list" id="archive-list"></div>
+        </section>
+      </main>
+      <footer class="app-footer"><span>© The Tax Cup · Simplifying tax &amp; compliance for businesses</span><span>Nigeria Tax Act 2025 · PAYE model</span></footer>
+    </div>
+  </div>
+  <script src="assets/js/tax-engine.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/calculator.js"></script>
+</body>
+</html>

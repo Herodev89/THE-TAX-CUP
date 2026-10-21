@@ -1,0 +1,13 @@
+{
+  "name": "The Tax Cup · Payroll & PAYE",
+  "short_name": "Tax Cup",
+  "description": "Nigerian PAYE calculator and payroll workspace.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F7F3EC",
+  "theme_color": "#19140F",
+  "icons": [
+    { "src": "/assets/img/tax-cup-logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

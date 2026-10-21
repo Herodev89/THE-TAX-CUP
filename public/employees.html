@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#19140F">
+  <title>Team payroll · The Tax Cup</title>
+  <link rel="icon" href="assets/img/tax-cup-logo.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body data-page="team" data-title="Team payroll">
+  <div class="app-shell">
+    <div class="main">
+      <main class="content">
+        <section class="page-hero">
+          <img src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&w=1800&q=80" alt="">
+          <span class="eyebrow">Batch assessment</span>
+          <h1>Team payroll in one pass</h1>
+          <p>Calculate PAYE, pension, NHF and net pay for a whole team with shared salary rules and each person's own rent relief.</p>
+          <div class="hero-stats">
+            <div class="hero-stat"><span>Employees</span><strong id="hs-count">0</strong></div>
+            <div class="hero-stat"><span>Net payroll / month</span><strong id="hs-net">₦0</strong></div>
+            <div class="hero-stat"><span>PAYE / month</span><strong id="hs-paye">₦0</strong></div>
+          </div>
+          <span class="photo-credit">Photo: <a href="https://unsplash.com/@wocintechchat" target="_blank" rel="noopener">#WOCinTech Chat</a> / Unsplash</span>
+        </section>
+
+        <div class="print-only print-head"><div><img src="assets/img/tax-cup-logo.svg" alt=""><span><strong>THE TAX CUP</strong><small>Team payroll schedule</small></span></div><span id="print-meta"></span></div>
+
+        <section class="card no-print">
+          <div class="card-head"><div><h2><span class="step-badge">1</span>Shared payroll rules</h2><p>Applied to every employee in this calculation.</p></div></div>
+          <div class="card-body">
+            <div class="grid grid-3" style="gap:20px;align-items:start">
+              <div class="grid" style="gap:14px">
+                <div class="field"><span>Calculation mode</span>
+                  <div class="segmented full" id="mode"><button type="button" class="active" data-value="gross">Gross → Net</button><button type="button" data-value="net">Net → Gross</button></div>
+                </div>
+                <div class="field"><span>Salaries entered as</span>
+                  <div class="segmented full" id="unit"><button type="button" class="active" data-value="monthly">Monthly</button><button type="button" data-value="annual">Annual</button></div>
+                </div>
+              </div>
+              <div>
+                <div class="alloc-grid">
+                  <label class="alloc-item"><span><i class="swatch c-basic"></i>Basic</span><div class="input-group"><input class="allocation" data-key="basic" type="number" min="0" step="any" value="50"><span class="affix">%</span></div></label>
+                  <label class="alloc-item"><span><i class="swatch c-housing"></i>Housing</span><div class="input-group"><input class="allocation" data-key="housing" type="number" min="0" step="any" value="20"><span class="affix">%</span></div></label>
+                  <label class="alloc-item"><span><i class="swatch c-transport"></i>Transport</span><div class="input-group"><input class="allocation" data-key="transport" type="number" min="0" step="any" value="15"><span class="affix">%</span></div></label>
+                  <label class="alloc-item"><span><i class="swatch c-other"></i>Other</span><div class="input-group"><input class="allocation" data-key="other" type="number" min="0" step="any" value="15"><span class="affix">%</span></div></label>
+                </div>
+                <div class="alloc-meter"><div class="alloc-bar" id="alloc-bar"></div><div class="alloc-status"><span>Allocated <strong id="alloc-total">100%</strong></span><span id="alloc-state" class="ok">Balanced</span></div></div>
+              </div>
+              <div>
+                <label class="toggle-row"><span class="switch"><input id="pension" type="checkbox" checked><i></i></span><span class="copy"><strong>Pension</strong><small>8% employee · 10% employer</small></span></label>
+                <label class="toggle-row"><span class="switch"><input id="nhf" type="checkbox" checked><i></i></span><span class="copy"><strong>NHF</strong><small>2.5% of basic</small></span></label>
+                <label class="field" style="margin-top:12px"><span>NHIS <small>% of gross, employee</small></span><div class="input-group"><input id="nhis-rate" type="number" min="0" step="0.01" value="0"><span class="affix">%</span></div></label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card no-print">
+          <div class="card-head">
+            <div><h2><span class="step-badge">2</span>Team members</h2><p id="rows-hint">Enter each person's salary and the annual rent they pay.</p></div>
+            <div class="actions">
+              <button class="btn btn-ghost btn-sm" type="button" id="load-directory" data-icon="building">Load company directory</button>
+              <button class="btn btn-primary btn-sm" type="button" id="add-row" data-icon="plus">Add employee</button>
+            </div>
+          </div>
+          <div class="card-body" style="padding:16px 0 8px">
+            <div class="team-row head"><span>Name</span><span id="salary-head">Gross / month</span><span>Annual rent</span><span style="text-align:right" id="result-head">Net / month</span><span></span></div>
+            <div id="rows"></div>
+          </div>
+        </section>
+
+        <div class="stats">
+          <div class="stat"><span class="label" data-icon="wallet">Gross payroll</span><strong id="st-gross">₦0</strong><small>per month</small></div>
+          <div class="stat"><span class="label" data-icon="receipt">PAYE to remit</span><strong id="st-paye">₦0</strong><small>per month</small></div>
+          <div class="stat"><span class="label" data-icon="shield">Pension &amp; NHF</span><strong id="st-statutory">₦0</strong><small>employee share</small></div>
+          <div class="stat"><span class="label" data-icon="building">Employer cost</span><strong id="st-cost">₦0</strong><small>gross + employer pension</small></div>
+          <div class="stat feature"><span class="label" data-icon="trend">Net payroll</span><strong id="st-net">₦0</strong><small>to pay employees</small></div>
+        </div>
+
+        <section class="card">
+          <div class="card-head">
+            <div><h2><span class="step-badge no-print">3</span>Team payroll schedule</h2><p id="summary">No calculations yet</p></div>
+            <div class="actions no-print">
+              <button class="btn btn-ghost btn-sm" type="button" id="export-csv" data-icon="download">CSV</button>
+              <button class="btn btn-ghost btn-sm" type="button" id="print-btn" data-icon="printer">Print / PDF</button>
+            </div>
+          </div>
+          <div class="card-body" style="padding:16px 0 0">
+            <div class="table-wrap">
+              <table class="table">
+                <thead><tr><th>Employee</th><th class="num">Gross</th><th class="num">Basic</th><th class="num">Housing</th><th class="num">Transport</th><th class="num">Other</th><th class="num">Rent relief</th><th class="num">PAYE</th><th class="num">Pension</th><th class="num">NHF</th><th class="num">NHIS</th><th class="num">Net pay</th></tr></thead>
+                <tbody id="results"></tbody>
+                <tfoot id="totals"></tfoot>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="card no-print">
+          <div class="card-head">
+            <div><h2><span class="step-badge">4</span>Saved team payrolls</h2><p>Save this team calculation against a payroll month and reopen it later.</p></div>
+            <div class="actions">
+              <label class="field" style="min-width:170px"><input id="archive-month" type="month" aria-label="Payroll month"></label>
+              <button class="btn btn-primary" type="button" id="archive-save" data-icon="save">Save team payroll</button>
+            </div>
+          </div>
+          <div class="card-body" style="padding-bottom:8px"><div class="search field"><span data-icon="search"></span><input id="archive-search" type="search" placeholder="Search saved payrolls" aria-label="Search saved payrolls"></div></div>
+          <div class="list" id="archive-list"></div>
+        </section>
+      </main>
+      <footer class="app-footer"><span>© The Tax Cup · Simplifying tax &amp; compliance for businesses</span><span>Nigeria Tax Act 2025 · PAYE model</span></footer>
+    </div>
+  </div>
+  <script src="assets/js/tax-engine.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/team.js"></script>
+</body>
+</html>

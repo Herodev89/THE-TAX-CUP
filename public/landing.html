@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#19140F">
+  <meta name="description" content="The Tax Cup — Nigerian PAYE calculator and payroll workspace built on the Nigeria Tax Act 2025 bands. Gross to net, net to gross, team payroll, approvals and audit trail.">
+  <title>The Tax Cup · Nigerian PAYE &amp; payroll, done right</title>
+  <link rel="icon" href="assets/img/tax-cup-logo.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <meta property="og:title" content="The Tax Cup · Nigerian PAYE & payroll">
+  <meta property="og:description" content="PAYE, pension, NHF and rent relief under the Nigeria Tax Act 2025 — for one employee or the whole company.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="wrap">
+      <a class="logo" href="landing.html"><img src="assets/img/tax-cup-logo.svg" alt=""><span><strong>THE <em>TAX</em> CUP</strong><small>Simplifying tax &amp; compliance for businesses</small></span></a>
+      <nav class="site-nav" aria-label="Sections">
+        <a href="#features">Features</a>
+        <a href="#bands">Tax bands</a>
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="header-cta">
+        <a class="btn btn-ghost btn-sm" href="login.html">Sign in</a>
+        <a class="btn btn-primary btn-sm" href="index.html">Open calculator</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <img src="https://images.unsplash.com/photo-1573164574397-dd250bc8a598?auto=format&fit=crop&w=2200&q=80" alt="Three professionals meeting around a boardroom table with laptops">
+      <div class="wrap">
+        <div>
+          <span class="eyebrow">Nigeria Tax Act 2025 · effective January 2026</span>
+          <h1>Nigerian payroll &amp; PAYE, <span>done right.</span></h1>
+          <p class="lead">Calculate take-home pay in seconds, run payroll for the whole team, and move every month through review, approval and payment — with a record your auditors can follow.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="index.html">Start calculating<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-light" href="#features">See what's inside</a>
+          </div>
+          <div class="hero-proof">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>2026 progressive bands</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Pension, NHF &amp; rent relief</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Approvals &amp; audit trail</span>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Quick take-home pay estimate">
+          <h2>What will you take home?</h2>
+          <p class="sub">Monthly gross · 50/20/15/15 structure · pension &amp; NHF on</p>
+          <label class="hc-input" for="quick-salary"><span>₦</span><input id="quick-salary" type="number" inputmode="decimal" min="0" step="1000" value="750000" aria-label="Monthly gross salary"></label>
+          <input class="hc-range" id="quick-range" type="range" min="50000" max="5000000" step="10000" value="750000" aria-label="Adjust monthly gross salary">
+          <div class="hc-result"><small>Estimated take-home</small><strong id="quick-net">₦0</strong></div>
+          <div class="hc-grid">
+            <div><span>PAYE / month</span><b id="quick-paye">₦0</b></div>
+            <div><span>Pension + NHF</span><b id="quick-stat">₦0</b></div>
+            <div><span>Effective rate</span><b id="quick-rate">0%</b></div>
+          </div>
+          <div class="hc-foot"><span>Estimate only.</span><a href="index.html">Full calculator →</a></div>
+        </aside>
+      </div>
+      <span class="photo-credit">Photo: <a href="https://unsplash.com/@wocintechchat" target="_blank" rel="noopener">#WOCinTech Chat</a> / Unsplash</span>
+    </section>
+
+    <section class="strip" aria-label="Key figures">
+      <div class="wrap">
+        <div><strong>₦800k</strong><span>annual income taxed at 0%</span></div>
+        <div><strong>15–25%</strong><span>progressive bands above it</span></div>
+        <div><strong>₦500k</strong><span>maximum annual rent relief</span></div>
+        <div><strong>5 stages</strong><span>from draft to paid</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">One workspace</span>
+          <h2>Everything between a salary offer and a payslip</h2>
+          <p>Replace fragile spreadsheet formulas with one set of rules that every calculation, report and approval uses.</p>
+        </div>
+        <div class="features">
+          <article class="feature"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7h7M8.5 11h.01M12 11h.01M15.5 11h.01M8.5 14.5h.01M12 14.5h.01M15.5 14.5v3"/></svg></div><h3>PAYE calculator</h3><p>Gross to net with a full payslip, band-by-band tax computation and the employer's cost.</p><a href="index.html">Open calculator <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+          <article class="feature"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg></div><h3>Net-to-gross solver</h3><p>Agreed a take-home figure? Get the exact gross salary that delivers it, to the kobo.</p><a href="index.html">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+          <article class="feature"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.4 3.3-5.5 6.5-5.5s5.9 2.1 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c1.9.7 3.2 2.5 3.5 5.2"/></svg></div><h3>Team payroll</h3><p>Run a whole team at once with shared salary rules and each person's own rent relief.</p><a href="employees.html">Open team payroll <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+          <article class="feature"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5.5A1.5 1.5 0 0 1 5.5 4h8A1.5 1.5 0 0 1 15 5.5V21M15 10h3.5a1.5 1.5 0 0 1 1.5 1.5V21M2.5 21h19"/><path d="M8 8h3M8 12h3M8 16h3"/></svg></div><h3>Company workspace</h3><p>A shared staff register and monthly runs that lock each month's figures permanently.</p><a href="company.html">Open workspace <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+          <article class="feature"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.3 7.5 9.5 4.3-1.2 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Approval workflow</h3><p>Draft → Under review → Approved → Finalised → Paid. Finalised months can't be edited.</p><a href="payroll.html">Open control room <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+          <article class="feature"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Roles &amp; audit trail</h3><p>Five roles with server-enforced permissions, and a timestamped log of who changed what.</p><a href="payroll.html#audit">View audit trail <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="showcase">
+          <div class="media">
+            <img src="https://images.unsplash.com/photo-1765475467677-579353b25ce0?auto=format&fit=crop&w=1400&q=80" alt="Aerial view of Victoria Island, Lagos, with boats crossing the lagoon" loading="lazy">
+            <span class="credit">Photo: <a href="https://unsplash.com/@0xhanta" target="_blank" rel="noopener">Malik Buraimoh</a> / Unsplash</span>
+            <div class="float"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 17 9 11.5l4 4L20.5 8"/><path d="M15 8h5.5v5.5"/></svg></span><span><strong>Built for Nigerian payroll</strong><span>Naira, local reliefs and statutory contributions</span></span></div>
+          </div>
+          <div class="copy">
+            <span class="eyebrow">Statutory accuracy</span>
+            <h2>The 2026 rules, applied the same way every time</h2>
+            <p>One tax engine powers every page, so the calculator, team schedules and saved payroll runs always agree.</p>
+            <ul class="checks">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><div><strong>Rent relief, not CRA</strong><span>20% of annual rent up to ₦500,000, as the new Act requires.</span></div></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><div><strong>Correct pension &amp; NHF bases</strong><span>8% of basic, housing and transport; 2.5% of basic.</span></div></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><div><strong>Employer costs kept separate</strong><span>Employer pension, NSITF and ITF never reduce an employee's pay.</span></div></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="showcase flip">
+          <div class="media">
+            <img src="https://images.unsplash.com/photo-1573164574048-f968d7ee9f20?auto=format&fit=crop&w=1400&q=80" alt="Two colleagues working on laptops in a bright, modern office" loading="lazy">
+            <span class="credit">Photo: <a href="https://unsplash.com/@wocintechchat" target="_blank" rel="noopener">#WOCinTech Chat</a> / Unsplash</span>
+            <div class="float"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.3 7.5 9.5 4.3-1.2 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg></span><span><strong>Approved by Finance</strong><span>March payroll · 24 employees · locked</span></span></div>
+          </div>
+          <div class="copy">
+            <span class="eyebrow">Governance</span>
+            <h2>Approvals your auditors can follow</h2>
+            <p>Every record moves through clear stages, and every action is written to the audit trail by the server — not by someone's browser.</p>
+            <ul class="checks">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><div><strong>Separation of duties</strong><span>Payroll officers prepare; accountants approve; administrators manage access.</span></div></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><div><strong>Locked history</strong><span>Finalised and paid months can't be quietly edited.</span></div></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><div><strong>Reports on demand</strong><span>Employee histories and company schedules, as PDF or CSV.</span></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark" id="bands">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Personal income tax · 2026</span>
+          <h2>The progressive PAYE bands</h2>
+          <p>Applied to annual taxable income — gross pay minus pension, NHF, NHIS and rent relief.</p>
+        </div>
+        <div class="bands-table" id="bands-table">
+          <div class="bands-row head"><span>Annual taxable income</span><span>Rate</span><span>Relative rate</span></div>
+        </div>
+        <p class="bands-note">Source: Nigeria Tax Act 2025, Fourth Schedule. Confirm individual exemptions with a qualified adviser.</p>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="wrap">
+        <div class="section-head center">
+          <span class="eyebrow">How it works</span>
+          <h2>From directory to payslip in three steps</h2>
+        </div>
+        <div class="steps">
+          <article class="step"><h3>Add your people</h3><p>Build the shared employee directory with salaries, departments and the rent each person pays.</p></article>
+          <article class="step"><h3>Set the rules once</h3><p>Choose your salary structure and which contributions apply. Every calculation uses the same rules.</p></article>
+          <article class="step"><h3>Approve &amp; pay</h3><p>Save the month, move it through approval and export the schedule for your bank and auditors.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq" style="padding-top:0">
+      <div class="wrap">
+        <div class="section-head center">
+          <span class="eyebrow">Questions</span>
+          <h2>Frequently asked</h2>
+        </div>
+        <div class="faq">
+          <details open><summary>Is the Consolidated Relief Allowance (CRA) still applied?</summary><p>No. The Nigeria Tax Act 2025 replaced CRA from 1 January 2026. The Tax Cup applies the new ₦800,000 tax-free band and rent relief of 20% of annual rent, capped at ₦500,000.</p></details>
+          <details><summary>Which deductions reduce taxable income?</summary><p>Employee pension (8% of basic, housing and transport), NHF (2.5% of basic), NHIS contributions and rent relief. Loans and other voluntary deductions come out of net pay without reducing tax.</p></details>
+          <details><summary>Are NSITF and ITF deducted from employees?</summary><p>No. They are employer contributions. The Tax Cup shows them — with the 10% employer pension — as part of the cost to the company, never as a deduction from pay.</p></details>
+          <details><summary>Where is our payroll data stored?</summary><p>On the server your organisation runs The Tax Cup on, not in individual browsers, so every authorised colleague sees the same records and the audit trail can't be altered from a browser.</p></details>
+          <details><summary>Is this a substitute for professional tax advice?</summary><p>No. The Tax Cup applies the published rules consistently, but individual circumstances and exemptions vary. Review final figures with your payroll or tax adviser.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="cta">
+        <img src="https://images.unsplash.com/photo-1573162915955-6a8ba9d2fe20?auto=format&fit=crop&w=1800&q=80" alt="" loading="lazy">
+        <div><h2>Run this month's payroll with confidence.</h2><p>Sign in to your workspace or try the calculator now.</p></div>
+        <div class="hero-actions" style="margin:0"><a class="btn btn-primary" href="index.html">Open calculator</a><a class="btn btn-light" href="login.html">Sign in</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div>
+        <a class="logo" href="landing.html"><img src="assets/img/tax-cup-logo.svg" alt=""><span><strong>THE <em>TAX</em> CUP</strong><small>Simplifying tax &amp; compliance for businesses</small></span></a>
+        <p>Nigerian PAYE and payroll for HR, finance and compliance teams.</p>
+      </div>
+      <div><h4>Product</h4><ul><li><a href="index.html">PAYE calculator</a></li><li><a href="employees.html">Team payroll</a></li><li><a href="company.html">Company workspace</a></li><li><a href="payroll.html">Control room</a></li></ul></div>
+      <div><h4>Learn</h4><ul><li><a href="#bands">2026 tax bands</a></li><li><a href="#how">How it works</a></li><li><a href="#faq">FAQ</a></li><li><a href="login.html">Sign in</a></li></ul></div>
+      <div class="legal"><span>© <span id="year">2026</span> The Tax Cup. Estimates only — not tax advice.</span><span>Photography from <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash</a> under the Unsplash License: #WOCinTech Chat, Malik Buraimoh.</span></div>
+    </div>
+  </footer>
+
+  <script src="assets/js/tax-engine.js"></script>
+  <script src="assets/js/landing.js"></script>
+</body>
+</html>

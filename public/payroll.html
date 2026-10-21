@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#19140F">
+  <title>Control room · The Tax Cup</title>
+  <link rel="icon" href="assets/img/tax-cup-logo.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body data-page="payroll" data-title="Control room">
+  <div class="app-shell">
+    <div class="main">
+      <main class="content">
+        <section class="page-hero">
+          <img src="https://images.unsplash.com/photo-1765475467677-579353b25ce0?auto=format&fit=crop&w=1800&q=80" alt="">
+          <span class="eyebrow">Governance &amp; approvals</span>
+          <h1>Payroll control room</h1>
+          <p>Record monthly salary snapshots, move them through review and approval, and keep an audit trail of every change.</p>
+          <div class="hero-stats">
+            <div class="hero-stat"><span>Awaiting approval</span><strong id="hs-review">0</strong></div>
+            <div class="hero-stat"><span>Pending payment</span><strong id="hs-pending">0</strong></div>
+            <div class="hero-stat"><span>Records this month</span><strong id="hs-month">0</strong></div>
+          </div>
+          <span class="photo-credit">Photo: <a href="https://unsplash.com/@0xhanta" target="_blank" rel="noopener">Malik Buraimoh</a> / Unsplash · Victoria Island, Lagos</span>
+        </section>
+
+        <nav class="tabs no-print" role="tablist" aria-label="Control room sections">
+          <button class="tab active" type="button" data-view="dashboard" data-icon="trend">Dashboard</button>
+          <button class="tab" type="button" data-view="records" data-icon="file">Salary records</button>
+          <button class="tab" type="button" data-view="employee-report" data-icon="users">Employee report</button>
+          <button class="tab" type="button" data-view="company-report" data-icon="receipt">Payroll report</button>
+          <button class="tab hidden" type="button" data-view="users" data-icon="key" data-admin>Users &amp; roles</button>
+          <button class="tab hidden" type="button" data-view="audit" data-icon="clock" data-admin>Audit trail</button>
+        </nav>
+
+        <!-- Dashboard -->
+        <section class="view active" id="dashboard-view">
+          <div class="card">
+            <div class="toolbar" style="border-radius:var(--radius-lg)">
+              <label class="field"><span>Period</span><input id="dash-period" type="month"></label>
+              <label class="field"><span>Department</span><select id="dash-department"><option value="">All departments</option></select></label>
+            </div>
+          </div>
+          <div class="stats">
+            <div class="stat"><span class="label" data-icon="users">Employees</span><strong id="m-employees">0</strong><small>in directory</small></div>
+            <div class="stat"><span class="label" data-icon="wallet">Gross payroll</span><strong id="m-gross">₦0</strong><small id="m-gross-note">selected period</small></div>
+            <div class="stat"><span class="label" data-icon="receipt">Deductions</span><strong id="m-deductions">₦0</strong><small>PAYE, pension, NHF &amp; others</small></div>
+            <div class="stat"><span class="label" data-icon="check">Paid</span><strong id="m-paid">0</strong><small id="m-paid-note">of 0 records</small></div>
+            <div class="stat feature"><span class="label" data-icon="trend">Net payable</span><strong id="m-net">₦0</strong><small>after deductions</small></div>
+          </div>
+          <div class="grid grid-2">
+            <article class="card"><div class="card-head"><div><h2>Six-month trend</h2><p>Gross <span class="swatch" style="background:#E8DCC4;margin:0 4px"></span> vs net <span class="swatch c-net" style="margin:0 4px"></span></p></div></div><div class="card-body"><div class="bar-chart" id="trend-chart"></div></div></article>
+            <article class="card"><div class="card-head"><div><h2>Payment status</h2><p>Selected period</p></div></div><div class="card-body"><div class="donut-wrap" id="status-chart"></div></div></article>
+            <article class="card"><div class="card-head"><div><h2>Gross by department</h2><p>Selected period</p></div></div><div class="card-body" id="department-chart"></div></article>
+            <article class="card"><div class="card-head"><div><h2>Deduction breakdown</h2><p>Selected period</p></div></div><div class="card-body" id="deduction-chart"></div></article>
+          </div>
+        </section>
+
+        <!-- Records -->
+        <section class="view" id="records-view">
+          <div class="card">
+            <div class="card-head">
+              <div><h2>Salary records</h2><p>One permanent record per employee per month. Finalised and paid records are locked.</p></div>
+              <div class="actions"><button class="btn btn-primary" type="button" id="new-record" data-icon="plus">Record monthly payroll</button></div>
+            </div>
+            <div class="toolbar" style="margin-top:16px;border-radius:0">
+              <div class="field grow search"><span data-icon="search"></span><input id="rec-search" type="search" placeholder="Search name, ID or department" aria-label="Search records"></div>
+              <label class="field"><select id="rec-employee" aria-label="Employee"><option value="">All employees</option></select></label>
+              <label class="field"><select id="rec-status" aria-label="Workflow status"><option value="">All statuses</option><option>Draft</option><option>Under Review</option><option>Approved</option><option>Finalized</option><option>Paid</option></select></label>
+              <label class="field"><select id="rec-payment" aria-label="Payment status"><option value="">All payments</option><option>Pending</option><option>Paid</option><option>Failed</option></select></label>
+              <label class="field"><input id="rec-from" type="month" aria-label="From month" title="From"></label>
+              <label class="field"><input id="rec-to" type="month" aria-label="To month" title="To"></label>
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead><tr><th>Period</th><th>Employee</th><th class="num">Gross</th><th class="num">Deductions</th><th class="num">Net pay</th><th>Workflow</th><th>Payment</th><th></th></tr></thead>
+                <tbody id="records-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Employee report -->
+        <section class="view" id="employee-report-view">
+          <div class="card no-print">
+            <div class="toolbar" style="border-radius:var(--radius-lg)">
+              <label class="field grow"><span>Employee</span><select id="rep-employee"><option value="">Select employee</option></select></label>
+              <label class="field"><span>From</span><input id="rep-from" type="month"></label>
+              <label class="field"><span>To</span><input id="rep-to" type="month"></label>
+              <button class="btn btn-ghost" type="button" data-print data-icon="printer">Print / PDF</button>
+            </div>
+          </div>
+          <div class="print-only print-head"><div><img src="assets/img/tax-cup-logo.svg" alt=""><span><strong>THE TAX CUP</strong><small>Employee payroll history</small></span></div></div>
+          <div id="employee-report"></div>
+        </section>
+
+        <!-- Company report -->
+        <section class="view" id="company-report-view">
+          <div class="card no-print">
+            <div class="toolbar" style="border-radius:var(--radius-lg)">
+              <label class="field"><span>Period</span><input id="co-period" type="month"></label>
+              <label class="field"><span>Department</span><select id="co-department"><option value="">All departments</option></select></label>
+              <button class="btn btn-ghost" type="button" id="export-csv" data-icon="download">Export CSV</button>
+              <button class="btn btn-ghost" type="button" data-print data-icon="printer">Print / PDF</button>
+            </div>
+          </div>
+          <div class="print-only print-head"><div><img src="assets/img/tax-cup-logo.svg" alt=""><span><strong>THE TAX CUP</strong><small>Company payroll report</small></span></div><span id="co-print-meta"></span></div>
+          <div class="stats" id="co-summary"></div>
+          <div class="card">
+            <div class="table-wrap">
+              <table class="table">
+                <thead><tr><th>Employee</th><th>Department</th><th class="num">Basic</th><th class="num">Allowances</th><th class="num">Bonus &amp; overtime</th><th class="num">Gross</th><th class="num">PAYE</th><th class="num">Other deductions</th><th class="num">Net</th><th class="num">Employer cost</th><th>Status</th></tr></thead>
+                <tbody id="co-body"></tbody>
+                <tfoot id="co-foot"></tfoot>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Users -->
+        <section class="view" id="users-view">
+          <div class="card">
+            <div class="card-head">
+              <div><h2>Users &amp; roles</h2><p>Permissions are enforced by the server on every request.</p></div>
+              <div class="actions"><button class="btn btn-primary" type="button" id="new-user" data-icon="plus">Add user</button></div>
+            </div>
+            <div class="card-body" style="padding:16px 0 0">
+              <div class="table-wrap">
+                <table class="table">
+                  <thead><tr><th>User</th><th>Role</th><th>Status</th><th>Last sign-in</th><th></th></tr></thead>
+                  <tbody id="users-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-3" id="role-cards"></div>
+        </section>
+
+        <!-- Audit -->
+        <section class="view" id="audit-view">
+          <div class="card">
+            <div class="card-head"><div><h2>Audit trail</h2><p>Recorded by the server with the signed-in user — it cannot be edited from the browser.</p></div></div>
+            <div class="toolbar" style="margin-top:16px;border-radius:0"><div class="field grow search"><span data-icon="search"></span><input id="audit-search" type="search" placeholder="Search user, action or record" aria-label="Search audit trail"></div></div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead><tr><th>When</th><th>User</th><th>Action</th><th>Record</th><th>Change</th></tr></thead>
+                <tbody id="audit-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="app-footer"><span>© The Tax Cup · Simplifying tax &amp; compliance for businesses</span><span>Edits to a record are logged; finalised records are locked.</span></footer>
+    </div>
+  </div>
+
+  <dialog class="modal" id="record-dialog">
+    <form id="record-form">
+      <div class="modal-head"><div><h2 id="record-title">Record monthly payroll</h2><p id="record-sub">All amounts are monthly, in naira.</p></div><button class="icon-btn" type="button" data-close aria-label="Close" data-icon="x"></button></div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <label class="field"><span>Employee</span><select id="f-employee" required></select></label>
+          <label class="field"><span>Payroll month</span><input id="f-period" type="month" required></label>
+          <label class="field"><span>Annual rent paid <small>for relief</small></span><input id="f-annualRent" type="number" min="0" step="0.01" value="0"></label>
+        </div>
+        <div class="section-title"><span>Earnings</span><button class="link-btn" type="button" id="fill-from-salary">Fill from directory salary</button></div>
+        <div class="form-grid" id="earnings-fields"></div>
+        <div class="section-title"><span>Employee deductions</span><button class="btn btn-ghost btn-sm" type="button" id="auto-calc" data-icon="sparkle">Calculate PAYE, pension &amp; NHF</button></div>
+        <div class="form-grid" id="deduction-fields"></div>
+        <div class="section-title"><span>Employer contributions <small style="text-transform:none;letter-spacing:0;font-weight:500">— not deducted from pay</small></span></div>
+        <div class="form-grid" id="employer-fields"></div>
+        <div class="section-title"><span>Payment</span></div>
+        <div class="form-grid">
+          <label class="field"><span>Payment status</span><select id="f-paymentStatus"><option>Pending</option><option>Paid</option><option>Failed</option></select></label>
+          <label class="field"><span>Payment date</span><input id="f-paymentDate" type="date"></label>
+          <label class="field"><span>Reference</span><input id="f-reference" type="text" maxlength="120" placeholder="Bank transaction ID"></label>
+          <label class="field full"><span>Remarks</span><textarea id="f-remarks" rows="2" maxlength="1000"></textarea></label>
+        </div>
+        <div class="totals-strip">
+          <div><span>Gross pay</span><strong id="t-gross">₦0</strong></div>
+          <div><span>Deductions</span><strong id="t-deductions">₦0</strong></div>
+          <div id="t-net-box"><span>Net pay</span><strong id="t-net">₦0</strong></div>
+        </div>
+      </div>
+      <div class="modal-foot"><button class="btn btn-danger hidden" type="button" id="delete-record" data-icon="trash">Delete draft</button><span class="spacer"></span><button class="btn btn-ghost" type="button" data-close>Cancel</button><button class="btn btn-primary" type="submit" id="record-submit">Save record</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="modal sm" id="user-dialog">
+    <form id="user-form">
+      <div class="modal-head"><div><h2>Add user</h2><p>They will sign in with this email and temporary password.</p></div><button class="icon-btn" type="button" data-close aria-label="Close" data-icon="x"></button></div>
+      <div class="modal-body">
+        <div class="form-grid" style="grid-template-columns:1fr 1fr">
+          <label class="field full"><span>Full name</span><input id="u-name" required maxlength="120"></label>
+          <label class="field full"><span>Work email</span><input id="u-email" type="email" required maxlength="160"></label>
+          <label class="field"><span>Department</span><input id="u-department" maxlength="120"></label>
+          <label class="field"><span>Job title</span><input id="u-title" maxlength="120"></label>
+          <label class="field"><span>Role</span><select id="u-role"></select></label>
+          <label class="field"><span>Temporary password <small>8+ characters</small></span><input id="u-password" type="password" minlength="8" required autocomplete="new-password"></label>
+        </div>
+      </div>
+      <div class="modal-foot"><button class="btn btn-ghost" type="button" data-close>Cancel</button><button class="btn btn-primary" type="submit">Create user</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="modal sm" id="password-dialog">
+    <form id="password-form">
+      <div class="modal-head"><div><h2>Reset password</h2><p id="password-for"></p></div><button class="icon-btn" type="button" data-close aria-label="Close" data-icon="x"></button></div>
+      <div class="modal-body"><label class="field"><span>New temporary password <small>8+ characters</small></span><input id="new-password" type="password" minlength="8" required autocomplete="new-password"></label><p class="hint" style="margin-top:10px">The user is signed out everywhere and must use the new password.</p></div>
+      <div class="modal-foot"><button class="btn btn-ghost" type="button" data-close>Cancel</button><button class="btn btn-primary" type="submit">Reset password</button></div>
+    </form>
+  </dialog>
+
+  <script src="assets/js/tax-engine.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/payroll.js"></script>
+</body>
+</html>

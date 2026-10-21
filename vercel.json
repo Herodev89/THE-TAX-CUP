@@ -5,15 +5,7 @@
       "src": "server.js",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": [
-          "*.html",
-          "*.css",
-          "*.js",
-          "*.svg",
-          "*.jpg",
-          "*.png",
-          "manifest.json"
-        ]
+        "includeFiles": ["public/**", "lib/**"]
       }
     }
   ],

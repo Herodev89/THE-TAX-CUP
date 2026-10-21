@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#19140F">
+  <title>Company workspace · The Tax Cup</title>
+  <link rel="icon" href="assets/img/tax-cup-logo.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body data-page="company" data-title="Company workspace">
+  <div class="app-shell">
+    <div class="main">
+      <main class="content">
+        <section class="page-hero">
+          <img src="https://images.unsplash.com/photo-1573164574511-73c773193279?auto=format&fit=crop&w=1800&q=80" alt="">
+          <span class="eyebrow">Company workspace</span>
+          <h1>Staff register &amp; monthly payroll runs</h1>
+          <p>Keep one shared employee directory, run payroll on company-wide rules and lock each month as a permanent snapshot.</p>
+          <span class="photo-credit">Photo: <a href="https://unsplash.com/@wocintechchat" target="_blank" rel="noopener">#WOCinTech Chat</a> / Unsplash</span>
+        </section>
+
+        <div class="print-only print-head"><div><img src="assets/img/tax-cup-logo.svg" alt=""><span><strong>THE TAX CUP</strong><small>Company payroll statement</small></span></div><span id="print-meta"></span></div>
+
+        <div class="stats no-print">
+          <div class="stat"><span class="label" data-icon="users">Employees</span><strong id="st-count">0</strong><small id="st-count-note">in directory</small></div>
+          <div class="stat"><span class="label" data-icon="wallet">Gross payroll</span><strong id="st-gross">₦0</strong><small>per month</small></div>
+          <div class="stat"><span class="label" data-icon="receipt">PAYE</span><strong id="st-paye">₦0</strong><small>per month</small></div>
+          <div class="stat"><span class="label" data-icon="building">Employer cost</span><strong id="st-cost">₦0</strong><small>gross + employer contributions</small></div>
+          <div class="stat feature"><span class="label" data-icon="trend">Net payroll</span><strong id="st-net">₦0</strong><small>to pay employees</small></div>
+        </div>
+
+        <div class="grid grid-main">
+          <section class="card no-print">
+            <div class="card-head">
+              <div><h2>Employee directory</h2><p>Shared with every user in your organisation.</p></div>
+              <div class="actions"><button class="btn btn-primary btn-sm" type="button" id="add-employee" data-icon="plus">Add employee</button></div>
+            </div>
+            <div class="card-body" style="padding:16px 0 0">
+              <div class="table-wrap" style="max-height:420px">
+                <table class="table">
+                  <thead><tr><th>Employee</th><th class="num">Gross / month</th><th class="num">Annual rent</th><th>Status</th><th></th></tr></thead>
+                  <tbody id="directory"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section class="card no-print">
+            <div class="card-head"><div><h2>Payroll rules</h2><p>Company-wide structure and contributions.</p></div></div>
+            <div class="card-body">
+              <div class="alloc-grid">
+                <label class="alloc-item"><span><i class="swatch c-basic"></i>Basic</span><div class="input-group"><input class="allocation" data-key="basic" type="number" min="0" step="any" value="50"><span class="affix">%</span></div></label>
+                <label class="alloc-item"><span><i class="swatch c-housing"></i>Housing</span><div class="input-group"><input class="allocation" data-key="housing" type="number" min="0" step="any" value="20"><span class="affix">%</span></div></label>
+                <label class="alloc-item"><span><i class="swatch c-transport"></i>Transport</span><div class="input-group"><input class="allocation" data-key="transport" type="number" min="0" step="any" value="15"><span class="affix">%</span></div></label>
+                <label class="alloc-item"><span><i class="swatch c-other"></i>Other</span><div class="input-group"><input class="allocation" data-key="other" type="number" min="0" step="any" value="15"><span class="affix">%</span></div></label>
+              </div>
+              <div class="alloc-meter"><div class="alloc-bar" id="alloc-bar"></div><div class="alloc-status"><span>Allocated <strong id="alloc-total">100%</strong></span><span id="alloc-state" class="ok">Balanced</span></div></div>
+
+              <div class="section-title" style="margin-top:20px"><span>Employee deductions</span></div>
+              <label class="toggle-row"><span class="switch"><input id="pension" type="checkbox" checked><i></i></span><span class="copy"><strong>Pension</strong><small>8% employee · 10% employer</small></span></label>
+              <label class="toggle-row"><span class="switch"><input id="nhf" type="checkbox" checked><i></i></span><span class="copy"><strong>NHF</strong><small>2.5% of basic</small></span></label>
+              <label class="field" style="margin-top:12px"><span>NHIS (employee) <small>% of gross</small></span><div class="input-group"><input id="nhis-rate" type="number" min="0" step="0.01" value="0"><span class="affix">%</span></div></label>
+
+              <div class="section-title" style="margin-top:20px"><span>Employer-only contributions</span></div>
+              <div class="form-grid" style="grid-template-columns:1fr 1fr">
+                <label class="field"><span>NSITF</span><div class="input-group"><input id="nsitf-rate" type="number" min="0" step="0.01" value="1"><span class="affix">%</span></div></label>
+                <label class="field"><span>ITF</span><div class="input-group"><input id="itf-rate" type="number" min="0" step="0.01" value="1"><span class="affix">%</span></div></label>
+              </div>
+              <p class="hint" style="margin-top:8px">NSITF and ITF are paid by the employer and never reduce employee net pay. Set ITF to 0% if your company is below the ITF threshold.</p>
+            </div>
+          </section>
+        </div>
+
+        <section class="card">
+          <div class="card-head">
+            <div><h2 id="report-title">Live payroll</h2><p id="report-note">Calculated from the current directory and rules.</p></div>
+            <div class="actions no-print">
+              <button class="btn btn-ghost btn-sm hidden" type="button" id="back-live" data-icon="arrow">Back to live payroll</button>
+              <button class="btn btn-ghost btn-sm" type="button" id="export-csv" data-icon="download">CSV</button>
+              <button class="btn btn-ghost btn-sm" type="button" id="print-btn" data-icon="printer">Print / PDF</button>
+            </div>
+          </div>
+          <div class="toolbar no-print" style="margin-top:16px;border-radius:0">
+            <div class="field grow search"><span data-icon="search"></span><input id="filter-search" type="search" placeholder="Search employees" aria-label="Search employees"></div>
+            <label class="field"><select id="filter-department" aria-label="Department"><option value="">All departments</option></select></label>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>Employee</th><th class="num">Gross</th><th class="num">Basic</th><th class="num">Housing</th><th class="num">Transport</th><th class="num">Other</th><th class="num">PAYE</th><th class="num">Pension</th><th class="num">NHF</th><th class="num">NHIS</th><th class="num">Net pay</th><th class="num">Employer cost</th></tr></thead>
+              <tbody id="payroll"></tbody>
+              <tfoot id="payroll-totals"></tfoot>
+            </table>
+          </div>
+        </section>
+
+        <section class="card no-print">
+          <div class="card-head">
+            <div><h2>Monthly payroll runs</h2><p>Saving a run locks every employee's figures for that month.</p></div>
+            <div class="actions">
+              <label class="field" style="min-width:170px"><input id="run-month" type="month" aria-label="Payroll month"></label>
+              <button class="btn btn-primary" type="button" id="save-run" data-icon="save">Save this month</button>
+            </div>
+          </div>
+          <div class="card-body" style="padding-bottom:8px"><div class="search field"><span data-icon="search"></span><input id="run-search" type="search" placeholder="Search saved months" aria-label="Search saved months"></div></div>
+          <div class="list" id="runs"></div>
+        </section>
+      </main>
+      <footer class="app-footer"><span>© The Tax Cup · Simplifying tax &amp; compliance for businesses</span><span>Data is stored on your Tax Cup server</span></footer>
+    </div>
+  </div>
+
+  <dialog class="modal sm" id="employee-dialog">
+    <form id="employee-form" method="dialog">
+      <div class="modal-head"><div><h2 id="employee-dialog-title">Add employee</h2><p>Monthly figures in naira.</p></div><button class="icon-btn" type="button" data-close aria-label="Close" data-icon="x"></button></div>
+      <div class="modal-body">
+        <div class="form-grid" style="grid-template-columns:1fr 1fr">
+          <label class="field full"><span>Full name</span><input id="emp-name" required maxlength="120" autocomplete="off"></label>
+          <label class="field"><span>Department</span><input id="emp-department" maxlength="120" placeholder="e.g. Finance" list="department-options"></label>
+          <label class="field"><span>Job title</span><input id="emp-title" maxlength="120" placeholder="e.g. Accountant"></label>
+          <label class="field"><span>Gross salary / month</span><div class="input-group"><span class="affix">₦</span><input id="emp-salary" type="number" min="0" step="any" required></div></label>
+          <label class="field"><span>Annual rent paid</span><div class="input-group"><span class="affix">₦</span><input id="emp-rent" type="number" min="0" step="any" value="0"></div></label>
+          <label class="field"><span>Status</span><select id="emp-status"><option>Active</option><option>Inactive</option></select></label>
+        </div>
+        <datalist id="department-options"></datalist>
+      </div>
+      <div class="modal-foot"><button class="btn btn-ghost" type="button" data-close>Cancel</button><button class="btn btn-primary" type="submit" id="emp-submit">Save employee</button></div>
+    </form>
+  </dialog>
+
+  <script src="assets/js/tax-engine.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/company.js"></script>
+</body>
+</html>

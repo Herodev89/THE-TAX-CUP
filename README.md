@@ -1,50 +1,92 @@
 # THE TAX CUP
 
-A browser-based Nigerian PAYE salary calculator branded for The Tax Cup, with two modes:
+Nigerian PAYE calculator and payroll workspace — **Simplifying Tax & Compliance for Businesses**.
 
-- **Gross to net:** estimate monthly take-home pay, PAYE and deductions.
-- **Net to gross:** solve for the gross salary needed to deliver a target take-home amount.
-- **Gross composition:** allocate gross salary across Basic, Housing, Transport and Other Allowances using editable percentages.
-- **Employee report:** enter an employee name and use **Print / PDF** to print or save a complete branded salary report as PDF.
-- **Multiple employees:** open `employees.html` to calculate and report salary obligations for a whole team in one pass.
-- **Company workspace:** open `company.html` to manage a local employee directory, view payroll totals and save payroll runs.
-- **Payroll management:** open `payroll.html` for monthly salary snapshots, duplicate-period protection, payroll history filters, dashboards, individual/company reports, CSV export, workflow statuses, users/roles and an audit trail.
-
-The interface uses the Tax Cup gold-and-ink palette, with the logo in `tax-cup-logo.svg` and the brand tagline: **SIMPLIFYING TAX & COMPLIANCE FOR BUSINESSES**.
-
-## Multiple employees
-
-The **Multiple employees** page allows HR or payroll teams to add as many employee rows as needed. Shared composition percentages, pension, NHF, annual rent relief and calculation mode are applied to every row. The team report shows each employee's gross, Basic, Housing, Transport, Other Allowances, PAYE, pension, NHF and net pay, plus the total net payroll. Use **Print / PDF** to print or save the team report.
-
-## Company workspace prototype
-
-The **Company workspace** is available at `company.html`. It currently stores employee records and saved payroll-run summaries in the browser's local storage on that device. It is useful for demonstrating the company workflow, but it is not yet a secure multi-user database. Before production use, connect the same interface to authenticated hosting and a managed database such as Supabase.
-
-## Payroll management prototype
-
-The **Payroll control room** is available at `payroll.html`. It uses the existing employee directory as its source, then saves a complete salary and deduction snapshot under `tax-cup-salary-records`. Each employee/month combination is unique, so changing an employee's current salary cannot rewrite an earlier record. Records move through Draft, Under Review, Approved, Finalized and Paid states, and important actions are stored under `tax-cup-audit`. The seeded local account is `admin@taxcup.local` with password `demo-password`.
-
-The report views support individual history, company summaries, detailed tables, printing to PDF through the browser print dialog, and CSV downloads. User records and role assignments are available from Users & roles. This is a front-end prototype, not production authentication: passwords are hashed before storage, but real deployment requires server-side sessions, authorization, encryption, database constraints and a managed identity provider.
-
-Recommended production tables are `employees`, `users`, `roles`, `permissions`, `user_roles`, `payroll_periods`, `payroll_records`, `payroll_earnings`, `payroll_deductions`, `payroll_payments`, `payroll_approvals` and `audit_logs`. Put a unique constraint on `(employee_id, payroll_period_id)` and retain employee and salary values directly on each finalized payroll record for historical integrity.
+| Page | What it does |
+|---|---|
+| `landing.html` | Public overview with a live take-home estimate |
+| `login.html` | Sign-in |
+| `index.html` | PAYE calculator: gross → net and net → gross, payslip, band-by-band tax, employer cost, saved calculations |
+| `employees.html` | Team payroll: many employees at once, CSV / PDF schedule, saved team payrolls |
+| `company.html` | Company workspace: shared employee directory, company payroll rules, monthly runs that lock each month |
+| `payroll.html` | Control room: salary records, approval workflow, dashboards, reports, users & roles, audit trail |
 
 ## Run it
 
-Open `index.html` in a browser. No installation or build step is required. In VS Code, use **Open with Live Server** if that extension is installed.
+```bash
+npm install
+npm start
+```
 
-## Current model
+Open <http://localhost:3000>. In local demo mode you can sign in as `admin@taxcup.local` / `demo-password` (the login page offers a button for it).
 
-The starter model in `app.js` uses these configurable 2026 assumptions:
+The server listens on `127.0.0.1` by default. To open it from other computers on your network, start it with `HOST=0.0.0.0`.
 
-- Annual tax-free band: NGN 800,000
-- Progressive annual bands: 15%, 18%, 21%, 23%, 25%
-- Employee pension: 8% of qualifying earnings (Basic + Housing + Transport)
-- NHF: 2.5% of Basic salary
+Run the tax engine tests with `npm test`.
 
-These are implementation assumptions for the calculator and should be reviewed against the applicable Nigerian law, employee exemptions and employer payroll policy before production use. Update `TAX_BANDS` and the deduction rates at the top of `app.js` when the policy is confirmed.
+## Tax rules (Nigeria Tax Act 2025, effective 1 January 2026)
 
-## Gross composition
+All rules live in one place, `public/assets/js/tax-engine.js`, used by every page and by the tests.
 
-Enter the percentage for each earnings category. The calculator shows the live allocation total and only calculates when the percentages add up to exactly 100%. The result then shows the naira value of each category based on the entered gross salary. The default example is 50% Basic, 20% Housing, 15% Transport and 15% Other Allowances; replace these with the company's approved payroll structure.
+- Annual taxable income bands: first ₦800,000 at 0%, next ₦2.2m at 15%, next ₦9m at 18%, next ₦13m at 21%, next ₦25m at 23%, above ₦50m at 25%.
+- Taxable income = gross − employee pension − NHF − NHIS − rent relief.
+- **No CRA.** The Consolidated Relief Allowance was abolished; rent relief (20% of annual rent, capped at ₦500,000) replaces it.
+- Employee pension 8% of basic + housing + transport; NHF 2.5% of basic.
+- Employer pension (10%), NSITF and ITF are **employer costs** and never reduce employee net pay.
+- Other statutory deductions and loans come out of net pay without reducing tax.
 
-For the current payroll rule, employee pension is calculated at 8% of Basic + Housing + Transport. NHF is calculated at 2.5% of Basic salary only. The on-screen deduction descriptions reflect these bases.
+Confirm individual exemptions with a qualified adviser before processing payroll.
+
+## Project layout
+
+```
+server.js            Express server: auth, sessions, permissions, API, page routes
+lib/store.js         JSON-file storage (swap for a database in production)
+public/              Everything the browser can load — nothing else is served
+  assets/css/        app.css (workspace) and site.css (landing + login)
+  assets/js/         tax-engine.js, app.js (shell), one script per page
+data/                Users, employees, records, runs, archive, audit (git-ignored)
+test/                Tax engine tests
+_old-ui/             The previous interface, kept for reference (git-ignored, not served)
+```
+
+## Security model
+
+- Only `public/` is served. Server code, `data/`, `node_modules` and other project files are never reachable from the browser.
+- Sessions are signed cookies that expire after 12 hours. Signing out, resetting a password or deactivating a user revokes their sessions on the server.
+- Roles are enforced by the server on every request:
+
+| Role | Can |
+|---|---|
+| Super Administrator | Everything, including users, roles and the audit trail |
+| Accountant | Create, edit and approve payroll; export reports |
+| Payroll Officer | Maintain employees; create and edit payroll; export reports |
+| HR Manager | Maintain employees; view payroll |
+| Management | View payroll and reports |
+
+- Finalised and paid records are locked. Editing an approved record sends it back to review.
+- The audit trail is written by the server with the signed-in user's name.
+
+## Deploying
+
+Set these environment variables:
+
+| Variable | Purpose |
+|---|---|
+| `NODE_ENV=production` | Turns off demo mode and enables secure cookies |
+| `SESSION_SECRET` | **Required in production.** A random string of 32+ characters |
+| `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `ADMIN_NAME` | Creates the first administrator when no active administrator exists |
+| `DATA_DIR` | Where data files are stored (default `./data`) |
+| `TRUST_PROXY` | Set to `1` behind a reverse proxy (automatic on Vercel) |
+
+In production the old demo account is disabled automatically if it still uses `demo-password`.
+
+**Vercel note:** Vercel's file system is read-only, so saving employees, records or users will fail there with a clear "storage is read-only" message. For Vercel, replace `lib/store.js` with a database (e.g. Supabase/Postgres) — it is the only file that touches storage. A normal server or VPS with a persistent disk works as is.
+
+## Moving data from the previous version
+
+The previous version kept employees, records and saved payrolls in each browser's local storage. When a Super Administrator signs in on a browser that still has that data, a banner offers to import it to the server so the whole team can see it.
+
+## Photography
+
+Photos are loaded from Unsplash under the [Unsplash License](https://unsplash.com/license) (free for commercial use): #WOCinTech Chat and Malik Buraimoh. Credits are shown on each page.

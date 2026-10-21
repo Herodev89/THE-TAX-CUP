@@ -3,7 +3,8 @@ node_modules.zip
 node_modules.rar
 *- Copy.*
 * - Copy.*
-.session-secret
 .vercel
-users.json
+.env
+data/
+_old-ui/
 *.csv
