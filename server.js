@@ -161,6 +161,16 @@ const routeContext = { sessionSecret, isProduction, demoEnabled };
 // CSRF protection for mutating API calls
 app.use('/api', csrfProtection);
 
+// Health check endpoint accessible at /api/health, /health, /api/health/
+app.get(['/api/health', '/api/health/', '/health', '/health/'], async (req, res) => {
+  const dbHealth = await db.healthCheck();
+  res.json({
+    ok: true,
+    name: 'Tax Cup API',
+    database: dbHealth,
+  });
+});
+
 app.use('/api', createAuthRouter(routeContext));
 app.use('/api/users', createUsersRouter(routeContext));
 app.use('/api/employees', createEmployeesRouter(routeContext));
