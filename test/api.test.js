@@ -1,5 +1,13 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+
+// Use a throwaway data folder so test runs never touch the real local data.
+const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'taxcup-api-'));
+process.env.DATA_DIR = dataDir;
+
 const app = require('../server');
 
 let server;
@@ -16,6 +24,7 @@ test.before(async () => {
 
 test.after(async () => {
   await new Promise((resolve) => server.close(resolve));
+  fs.rmSync(dataDir, { recursive: true, force: true });
 });
 
 test('GET /api/health returns ok', async () => {
