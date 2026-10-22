@@ -21,6 +21,8 @@ npm start
 
 Open <http://localhost:3000>. In local demo mode you can sign in as `admin@taxcup.local` / `demo-password` (the login page offers a button for it).
 
+The demo account only exists on a local machine. On Vercel, with `NODE_ENV=production`, or with `DEMO_MODE=false` it is never created or shown, and a demo account left over from an earlier deploy is switched off on startup. Set `ADMIN_EMAIL` and `ADMIN_PASSWORD` so the live site has a real administrator.
+
 The server listens on `127.0.0.1` by default. To open it from other computers on your network, start it with `HOST=0.0.0.0`.
 
 Run the tax engine tests with `npm test`.

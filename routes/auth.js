@@ -21,17 +21,10 @@ function createAuthRouter({ sessionSecret, isProduction, demoEnabled }) {
     res.json({ ok: true, name: 'Tax Cup API', database: dbHealth });
   });
 
-  router.get('/config', async (req, res) => {
-    let showDemo = demoEnabled;
-    try {
-      const users = await db.users.list();
-      if (!users.some((u) => u.active !== false && u.email !== DEMO_EMAIL)) {
-        showDemo = true;
-      }
-    } catch {}
+  router.get('/config', (req, res) => {
     res.json({
-      demo: showDemo,
-      demoEmail: showDemo ? DEMO_EMAIL : null,
+      demo: demoEnabled,
+      demoEmail: demoEnabled ? DEMO_EMAIL : null,
       databaseConfigured: db.isConfigured,
     });
   });
@@ -122,7 +115,8 @@ function createAuthRouter({ sessionSecret, isProduction, demoEnabled }) {
       const email = text(req.body?.email).toLowerCase();
       const password = String(req.body?.password || '');
 
-      const user = await db.users.findByEmail(email);
+      const isBlockedDemo = !demoEnabled && email === DEMO_EMAIL;
+      const user = isBlockedDemo ? null : await db.users.findByEmail(email);
       if (!user || user.active === false || !verifyPassword(password, user.passwordHash)) {
         return res.status(401).json({
           ok: false,

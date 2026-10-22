@@ -26,7 +26,8 @@ const port = Number(process.env.PORT || 3000);
 const host = process.env.HOST || '127.0.0.1';
 const publicDir = path.join(__dirname, 'public');
 const isProduction = process.env.NODE_ENV === 'production';
-const demoEnabled = !isProduction && process.env.DEMO_MODE !== 'false';
+// The demo account has a public password, so it only ever exists on a local machine.
+const demoEnabled = !isProduction && !process.env.VERCEL && process.env.DEMO_MODE !== 'false';
 
 // ── Configuration Validation ────────────────────────────────────────────────
 function checkConfiguration() {
@@ -107,10 +108,28 @@ async function bootstrapUsers() {
     console.log(`Created administrator ${adminEmail} from ADMIN_EMAIL / ADMIN_PASSWORD.`);
   }
 
-  // 2. Always guarantee at least one active administrator exists in the database
   const currentUsers = await db.users.list();
+  const demoUser = currentUsers.find((user) => user.email === DEMO_EMAIL);
+
+  // 2. Outside local demo mode, never create the demo account and switch off any left over
+  //    from an earlier deploy, signing out anyone still using it.
+  if (!demoEnabled) {
+    if (demoUser && demoUser.active !== false) {
+      await db.users.update(demoUser.id, { active: false, sessionVersion: (demoUser.sessionVersion || 0) + 1 });
+      console.warn(`Deactivated the demo account ${DEMO_EMAIL}.`);
+    }
+    const hasRealAdmin = currentUsers.some(
+      (user) => user.active !== false && user.role === 'Super Administrator' && user.email !== DEMO_EMAIL
+    );
+    if (!hasRealAdmin) {
+      console.warn('No administrator account exists. Set ADMIN_EMAIL and ADMIN_PASSWORD and restart.');
+    }
+    return;
+  }
+
+  // 3. In local demo mode, guarantee at least one active administrator exists
   const hasActiveAdmin = currentUsers.some((user) => user.active !== false && user.role === 'Super Administrator');
-  if (!hasActiveAdmin && !currentUsers.some((user) => user.email === DEMO_EMAIL)) {
+  if (!hasActiveAdmin && !demoUser) {
     await db.users.create({
       id: 'USR-ADMIN',
       name: 'Administrator',
