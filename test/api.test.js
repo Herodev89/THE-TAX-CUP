@@ -205,8 +205,6 @@ test('POST /api/register validates inputs, then the new user signs in', async ()
     body: JSON.stringify({
       name: 'Chidi Okonkwo',
       email,
-      department: 'Finance',
-      title: 'Payroll Officer',
       password: 'StrongPassword123',
       confirmPassword: 'StrongPassword123',
     }),

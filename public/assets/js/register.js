@@ -25,8 +25,6 @@
     event.preventDefault();
     const name = $('name').value.trim();
     const email = $('email').value.trim().toLowerCase();
-    const department = $('department').value.trim();
-    const title = $('title').value.trim();
     const password = $('password').value;
     const confirmPassword = $('confirm-password').value;
 
@@ -62,8 +60,6 @@
         body: JSON.stringify({
           name,
           email,
-          department,
-          title,
           password,
           confirmPassword,
         }),

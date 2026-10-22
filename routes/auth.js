@@ -53,8 +53,6 @@ function createAuthRouter({ sessionSecret, isProduction, demoEnabled }) {
       const body = req.body || {};
       const name = text(body.name, 120);
       const email = text(body.email, 160).toLowerCase();
-      const department = text(body.department, 120) || 'Finance';
-      const title = text(body.title, 120) || 'Payroll Manager';
       const password = String(body.password || '');
       const confirmPassword = String(body.confirmPassword || '');
 
@@ -94,8 +92,8 @@ function createAuthRouter({ sessionSecret, isProduction, demoEnabled }) {
         id: newId('USR'),
         name,
         email,
-        department,
-        title,
+        department: '',
+        title: '',
         role,
         passwordHash: hashPassword(password),
         sessionVersion: 0,
