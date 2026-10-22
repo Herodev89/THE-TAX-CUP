@@ -5,6 +5,7 @@ Nigerian PAYE calculator and payroll workspace — **Simplifying Tax & Complianc
 | Page | What it does |
 |---|---|
 | `landing.html` | Public overview with a live take-home estimate |
+| `register.html` | Sign-up: create an account, then sign in |
 | `login.html` | Sign-in |
 | `index.html` | PAYE calculator: gross → net and net → gross, payslip, band-by-band tax, employer cost, saved calculations |
 | `employees.html` | Team payroll: many employees at once, CSV / PDF schedule, saved team payrolls |
@@ -49,7 +50,7 @@ middleware/
   auth.js            Session authentication, cookie handling, RBAC permissions
   security.js        CSP, CSRF protection, and rate limiting
 routes/
-  auth.js            /api/login, /api/logout, /api/session, /api/health
+  auth.js            /api/register, /api/login, /api/logout, /api/session, /api/health
   users.js           /api/users (user administration)
   employees.js       /api/employees (employee directory)
   payroll.js         /api/records, /api/runs (payroll workflow & runs)
@@ -75,6 +76,9 @@ test/                Integration tests (api.test.js) & engine tests (tax-engine.
 | Payroll Officer | Maintain employees; create and edit payroll; export reports |
 | HR Manager | Maintain employees; view payroll |
 | Management | View payroll and reports |
+| Member | Use the calculators only (default for self-registered accounts; promote them in Control room → Users & roles) |
+
+Anyone can create an account at `register.html`. The very first real account becomes the Super Administrator; every later sign-up starts as a Member and cannot choose its own role.
 
 - Finalised and paid records are locked. Editing an approved record sends it back to review.
 - The audit trail is written by the server with the signed-in user's name.

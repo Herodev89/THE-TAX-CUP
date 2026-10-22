@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#19140F">
+  <meta name="description" content="Create your account on The Tax Cup — Nigerian PAYE calculator and compliant payroll workspace.">
+  <title>Create account · The Tax Cup</title>
+  <link rel="icon" href="assets/img/tax-cup-logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <style>
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; gap: 0; } }
+    .password-hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .select-wrap { position: relative; }
+    .select-wrap select { width: 100%; height: 50px; padding: 0 36px 0 16px; border-radius: 12px; border: 1px solid var(--line-2); background: var(--surface); font-size: 15px; color: var(--ink); appearance: none; transition: border-color .15s, box-shadow .15s; }
+    .select-wrap select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 4px var(--gold-ring); }
+    .select-wrap::after { content: ''; position: absolute; right: 16px; top: 50%; width: 8px; height: 8px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
+  </style>
+</head>
+<body>
+  <main class="auth">
+    <section class="auth-visual" aria-hidden="false">
+      <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1600&q=80" alt="Finance and HR professionals collaborating in a modern office">
+      <a class="logo" href="landing.html"><img src="assets/img/tax-cup-logo.svg" alt=""><span><strong>THE <em>TAX</em> CUP</strong><small>Simplifying tax &amp; compliance</small></span></a>
+      <blockquote>
+        <p>Your team's payroll, organized, compliant, and ready for audit.</p>
+        <div class="auth-points">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>2026 Tax Act PAYE rates</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Automatic pension &amp; rent relief</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Export bank schedules &amp; payslips</span>
+        </div>
+      </blockquote>
+      <span class="photo-credit">Photo: <a href="https://unsplash.com/@wocintechchat" target="_blank" rel="noopener">#WOCinTech Chat</a> / Unsplash</span>
+    </section>
+
+    <section class="auth-form-side">
+      <div class="top">
+        <a href="landing.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back to overview</a>
+        <a href="login.html" style="font-weight:600;color:var(--gold-text);">Sign in instead</a>
+      </div>
+      <form class="auth-form" id="register-form" novalidate>
+        <span class="eyebrow">Get started free</span>
+        <h1>Create account</h1>
+        <p>Set up your payroll workspace in less than a minute.</p>
+
+        <div class="form-field">
+          <label for="name">Full name</label>
+          <div class="input-wrap"><input id="name" type="text" autocomplete="name" placeholder="e.g. Olumide Johnson" required></div>
+        </div>
+
+        <div class="form-field">
+          <label for="email">Work email</label>
+          <div class="input-wrap"><input id="email" type="email" autocomplete="username" placeholder="you@company.com" required></div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="department">Department</label>
+            <div class="select-wrap">
+              <select id="department">
+                <option value="Finance" selected>Finance</option>
+                <option value="Human Resources">Human Resources</option>
+                <option value="Operations">Operations</option>
+                <option value="Executive Management">Management</option>
+                <option value="General">General</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="title">Job title</label>
+            <div class="input-wrap"><input id="title" type="text" placeholder="e.g. Payroll Lead" value="Payroll Manager"></div>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <input id="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" required>
+            <button type="button" class="toggle-password" data-target="password" aria-label="Show password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+          </div>
+          <span class="password-hint">Must be at least 8 characters</span>
+        </div>
+
+        <div class="form-field">
+          <label for="confirm-password">Confirm password</label>
+          <div class="input-wrap">
+            <input id="confirm-password" type="password" autocomplete="new-password" placeholder="Repeat your password" required>
+            <button type="button" class="toggle-password" data-target="confirm-password" aria-label="Show password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+          </div>
+        </div>
+
+        <p class="form-error" id="register-error" role="alert"></p>
+        <button class="btn btn-primary" type="submit" id="register-submit"><span id="register-label">Create your account</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p class="auth-foot">Already registered? <a href="login.html" style="color:var(--gold-text);font-weight:700;text-decoration:none;">Sign in here</a></p>
+      </form>
+    </section>
+  </main>
+  <script src="assets/js/register.js"></script>
+</body>
+</html>

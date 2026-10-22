@@ -200,6 +200,11 @@ app.get(['/login', '/login.html'], async (req, res) => {
   return user ? res.redirect('/index.html') : sendPage(res, 'login.html');
 });
 
+app.get(['/register', '/register.html', '/signup', '/signup.html'], async (req, res) => {
+  const user = await sessionUser(req, sessionSecret);
+  return user ? res.redirect('/index.html') : sendPage(res, 'register.html');
+});
+
 app.get('/:page', async (req, res, next) => {
   const page = String(req.params.page).toLowerCase();
   if (!PROTECTED_PAGES.has(page)) return next();

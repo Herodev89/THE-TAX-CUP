@@ -299,6 +299,7 @@
     'Payroll Officer': 'Maintains employees and prepares payroll records for approval.',
     'HR Manager': 'Maintains the employee directory and views payroll.',
     Management: 'Read-only access to payroll reports and dashboards.',
+    Member: 'Self-registered. Uses the calculators only until given a role.',
   };
   function renderUsers() {
     $('users-body').innerHTML = state.users.map((u) => {

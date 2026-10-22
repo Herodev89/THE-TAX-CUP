@@ -34,7 +34,11 @@
       <form class="auth-form" id="login-form" novalidate>
         <span class="eyebrow">Secure workspace</span>
         <h1>Welcome back</h1>
-        <p>Sign in with the account your administrator created for you.</p>
+        <p>Sign in to your Tax Cup workspace.</p>
+
+        <div class="demo-box registered-box" id="registered-box" role="status" hidden>
+          <span><b>Account created.</b> Sign in with your new email and password to continue.</span>
+        </div>
 
         <div class="demo-box hidden" id="demo-box" hidden>
           <span>Local demo: <b id="demo-email"></b></span>
@@ -54,7 +58,7 @@
         </div>
         <p class="form-error" id="login-error" role="alert"></p>
         <button class="btn btn-primary" type="submit" id="login-submit"><span id="login-label">Sign in</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <p class="auth-foot">Need access? Ask your Super Administrator to add you under <b>Control room → Users &amp; roles</b>.</p>
+        <p class="auth-foot">Don't have an account? <a href="register.html" style="color:var(--gold-text);font-weight:700;text-decoration:none;">Create an account</a> · Or ask your administrator to invite you.</p>
       </form>
     </section>
   </main>

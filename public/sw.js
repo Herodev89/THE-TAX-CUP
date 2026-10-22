@@ -1,6 +1,6 @@
 // Caches static assets for faster loads. Pages and API responses are never cached,
 // so signed-out users cannot reopen payroll screens from the cache.
-const CACHE_NAME = 'tax-cup-v4';
+const CACHE_NAME = 'tax-cup-v5';
 const ASSETS = [
   'assets/css/app.css',
   'assets/css/site.css',
@@ -10,6 +10,7 @@ const ASSETS = [
   'assets/js/company.js',
   'assets/js/landing.js',
   'assets/js/login.js',
+  'assets/js/register.js',
   'assets/js/payroll.js',
   'assets/js/team.js',
   'assets/img/tax-cup-logo.svg',

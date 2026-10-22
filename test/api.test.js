@@ -166,3 +166,109 @@ test('POST /api/logout invalidates session', async () => {
   const check2 = await fetch(`${baseUrl}/api/session`, { headers: { Cookie: cookie } });
   assert.equal((await check2.json()).authenticated, false);
 });
+
+test('POST /api/register validates inputs, then the new user signs in', async () => {
+  // 1. Missing name/email/password
+  const fail1 = await fetch(`${baseUrl}/api/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: '', email: 'test@example.com' }),
+  });
+  assert.equal(fail1.status, 400);
+
+  // 2. Short password
+  const fail2 = await fetch(`${baseUrl}/api/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Chidi Okonkwo', email: 'chidi@company.com', password: '123' }),
+  });
+  assert.equal(fail2.status, 400);
+
+  // 3. Mismatched passwords
+  const fail3 = await fetch(`${baseUrl}/api/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: 'Chidi Okonkwo',
+      email: 'chidi@company.com',
+      password: 'password123',
+      confirmPassword: 'differentpassword',
+    }),
+  });
+  assert.equal(fail3.status, 400);
+
+  // 4. Successful registration
+  const email = `newuser_${Date.now()}@company.com`;
+  const regRes = await fetch(`${baseUrl}/api/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: 'Chidi Okonkwo',
+      email,
+      department: 'Finance',
+      title: 'Payroll Officer',
+      password: 'StrongPassword123',
+      confirmPassword: 'StrongPassword123',
+    }),
+  });
+  assert.equal(regRes.status, 201);
+  const regData = await regRes.json();
+  assert.equal(regData.ok, true);
+  assert.equal(regData.user.email, email);
+  assert.equal(regData.user.name, 'Chidi Okonkwo');
+
+  assert.equal(regData.redirect, 'login.html?registered=1');
+  assert.equal(regRes.headers.get('set-cookie'), null, 'registering must not sign the user in');
+
+  // 5. The new account can then sign in
+  const loginRes = await fetch(`${baseUrl}/api/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password: 'StrongPassword123' }),
+  });
+  assert.equal(loginRes.status, 200);
+  const cookie = loginRes.headers.get('set-cookie');
+  assert.ok(cookie && cookie.includes('taxcup_session='));
+  const sessionRes = await fetch(`${baseUrl}/api/session`, {
+    headers: { Cookie: cookie },
+  });
+  const sessionData = await sessionRes.json();
+  assert.equal(sessionData.authenticated, true);
+  assert.equal(sessionData.user.email, email);
+
+  // 6. Duplicate registration fails with 409
+  const dupRes = await fetch(`${baseUrl}/api/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: 'Another Person',
+      email,
+      password: 'StrongPassword123',
+    }),
+  });
+  assert.equal(dupRes.status, 409);
+});
+
+test('POST /api/register ignores a requested role', async () => {
+  // Make sure a real Super Administrator exists so later sign-ups are not the workspace owner.
+  await fetch(`${baseUrl}/api/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Owner', email: `owner_${Date.now()}@company.com`, password: 'StrongPassword123' }),
+  });
+
+  const res = await fetch(`${baseUrl}/api/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: 'Mallory',
+      email: `mallory_${Date.now()}@company.com`,
+      password: 'StrongPassword123',
+      role: 'Super Administrator',
+    }),
+  });
+  assert.equal(res.status, 201);
+  const data = await res.json();
+  assert.equal(data.user.role, 'Member');
+  assert.deepEqual(data.user.permissions, []);
+});

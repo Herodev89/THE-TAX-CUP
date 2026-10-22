@@ -4,7 +4,20 @@
   const error = $('login-error');
   const submit = $('login-submit');
   const label = $('login-label');
-  const redirect = new URLSearchParams(location.search).get('redirect') || 'index.html';
+  const params = new URLSearchParams(location.search);
+  const redirect = params.get('redirect') || 'index.html';
+
+  if (params.get('registered') === '1') {
+    $('registered-box').hidden = false;
+    try {
+      const email = sessionStorage.getItem('taxcup_registered_email');
+      if (email) {
+        $('email').value = email;
+        sessionStorage.removeItem('taxcup_registered_email');
+        $('password').focus();
+      }
+    } catch (err) {}
+  }
 
   fetch('/api/config', { credentials: 'same-origin' })
     .then((response) => response.json())

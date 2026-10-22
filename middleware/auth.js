@@ -13,6 +13,8 @@ const ROLES = {
   Accountant: ['employees:read', 'payroll:read', 'payroll:write', 'payroll:approve', 'reports:read', 'reports:export', 'calc:write'],
   'Payroll Officer': ['employees:read', 'employees:write', 'payroll:read', 'payroll:write', 'reports:read', 'reports:export', 'calc:write'],
   Management: ['employees:read', 'payroll:read', 'reports:read'],
+  // Self-registered accounts: calculators only, no company data until an admin assigns a role.
+  Member: [],
 };
 
 const ALL_PERMISSIONS = [
